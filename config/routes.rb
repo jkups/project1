@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   resources :users
   resources :profiles
   resources :accounts
+
+  post '/accounts/switch' => 'accounts#switch', as: 'switch_account'
 end

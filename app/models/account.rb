@@ -3,7 +3,7 @@ class Account < ApplicationRecord
   belongs_to :profile
   has_one :bank
   has_one :company
-  has_one :legal_address
+  has_one :legal_address, dependent: :destroy
 
-  accepts_nested_attributes_for :legal_address
+  accepts_nested_attributes_for :legal_address, :profile
 end

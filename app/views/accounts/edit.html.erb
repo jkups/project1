@@ -1,3 +1,193 @@
-<h1>Accounts#edit</h1>
-<p>Find me in app/views/accounts/edit.html.erb</p>
- here is adit account
+<div class="container py-5">
+  <div class="d-md-flex my-md-4">
+  	<h4 class="text-info flex-fill"><%= @account.account_type %><br></h4>
+  	<div class="text-left text-md-right bg-light shadow-sm my-4 my-md-0 p-3 mr-0 rounded active-account">
+  		<h5 class="mb-0"><%= @account.account_name %></h5>
+  		<div>
+  			<span class="text-secondary" style="font-size: 14px;"><em>Account No: <%= @account.account_number %></em><br></span>
+  			<div>
+          <%= link_to 'NEW ACCOUNT', new_account_path, class:'text-white badge badge-warning ml-md-1 p-2' %>
+          <% if @current_user.profile.accounts.count > 1 %>
+            <%= link_to 'SWITCH ACCOUNT', '#', class: "text-white badge badge-warning ml-1 p-2", 'data-toggle': "modal", 'data-target': "#switchAccount" %>
+          <% end %>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-2">
+    	<ul id="sidebar" class="list-unstyled d-flex d-lg-block">
+    		<li class="text-center text-lg-left flex-fill">
+    			<a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs active" href="<%= edit_account_path %>">Account<br></a>
+    		</li>
+    		<li class="text-center text-lg-left flex-fill">
+    			<a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="/beneficiary">Banking<br></a>
+    		</li>
+    		<li class="text-center text-lg-left flex-fill">
+    			<a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="/settings">Investment<br></a>
+    		</li>
+    		<li class="text-center text-lg-left flex-fill">
+    			<a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="/settings">Dividend<br></a>
+    		</li>
+    	</ul>
+    </div>
+		<div class="col">
+      <%= form_with model: @account, local: true do |f| %>
+				<div class="border rounded p-4">
+          <div>
+            <h5>Account Details</h5>
+            <hr class="mb-4 border-info">
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <%= f.label :account_type, 'Account Type:', class:"d-block text-black-50" %>
+                <%= f.text_field :account_type, class:"form-control-lg form-control pl-2", readonly:'true' %>
+              </div>
+              <div class="form-group col-md-4">
+                <%= f.label :account_name, 'Account Name:', class:"d-block text-black-50" %>
+                <%= f.text_field :account_name, class:"form-control-lg form-control pl-2" %>
+              </div>
+              <div class="form-group col-md-4">
+                <%= f.label :account_number, 'Account Number:', class:"d-block text-black-50" %>
+                <%= f.text_field :account_number, class:"form-control-lg form-control pl-2", readonly:'true' %>
+              </div>
+            </div>
+          </div>
+
+          <%= f.fields_for :profile do |f| %>
+            <div class="mt-4">
+  						<h5>Contact Details</h5>
+  						<hr class="mb-4 border-info">
+  						<div class="form-row">
+  							<div class="form-group col-md-4">
+                  <%= f.label :first_name, 'First Name:', class:"d-block text-black-50" %>
+                  <%= f.text_field :first_name, class:"form-control-lg form-control", disabled:"true", readonly:"true"%>
+  							</div>
+  							<div class="form-group col-md-4">
+                  <%= f.label :middle_name, 'Middle Name:', class:"d-block text-black-50" %>
+                  <%= f.text_field :middle_name, class:"form-control-lg form-control", readonly:"true"%>
+  							</div>
+  							<div class="form-group col-md-4">
+                  <%= f.label :last_name, 'Last Name:', class:"d-block text-black-50" %>
+                  <%= f.text_field :last_name, class:"form-control-lg form-control", disabled:"true", readonly:"true"%>
+  							</div>
+  						</div>
+  						<div class="form-row">
+  							<div class="form-group col-md-6">
+                  <%= f.label :email, 'Email Address:', class:"d-block text-black-50" %>
+                  <%= f.text_field :email, class:"form-control-lg form-control", disabled:"true", readonly:"true"%>
+  							</div>
+  							<div class="form-group col-md-6">
+                  <%= f.label :mobile_number, 'Mobile Number:', class:"d-block text-black-50" %>
+                  <%= f.text_field :mobile_number, class:"form-control-lg form-control", readonly:"true"%>
+  							</div>
+  						</div>
+  					</div>
+          <% end %>
+
+          <%= f.fields_for :legal_address do |f| %>
+					  <div class="mt-4">
+  						<h5>Contact Address</h5>
+  						<hr class="mb-4 border-info">
+  						<div id="locationField" class="form-row">
+  							<div class="form-group col-12 mb-0">
+                  <%= text_field_tag "autocomplete", nil, placeholder:"Enter your address...", class:"form-control-lg form-control rounded-0 pac-target-input", onfocus:"geolocate()", autocomplete:"off" %>
+  							</div>
+  						</div>
+  						<div class="text-right bg-light custom-control custom-switch pr-4 py-2 border-bottom">
+                <%= check_box_tag 'toggleAddress', 1, false, class:"custom-control-input" %>
+                <%= label_tag "toggleAddress", "Manually Fill Address", class:"custom-control-label"%>
+  						</div>
+  						<div class="p-4 bg-light">
+                <%= f.label :street_name, 'Street Address:', class:"d-block text-black-50" %>
+  							<div class="form-row">
+  								<div class="form-group col-lg-2 col-3">
+                    <%= f.text_field :street_number, id:'street_number', class:"form-control-lg form-control pl-2", readonly:'true' %>
+  								</div>
+  								<div class="form-group col-lg-10 col-9">
+                    <%= f.text_field :street_name, id:'route', class:"form-control-lg form-control pl-2", readonly:'true' %>
+  								</div>
+  							</div>
+  							<div class="form-row">
+  								<div class="form-group col-md-6">
+                    <%= f.label :suburb, 'Suburb / City:', class:"d-block text-black-50" %>
+                    <%= f.text_field :suburb, id:'locality', class:"form-control-lg form-control pl-2", readonly:'true' %>
+  								</div>
+  								<div class="form-group col-md-6">
+                    <%= f.label :zipcode, 'Zip Code:', class:"d-block text-black-50"%>
+                    <%= f.text_field :zipcode, id:'postal_code', class:"form-control-lg form-control pl-2", readonly:'true' %>
+  								</div>
+  							</div>
+  							<div class="form-row">
+  								<div class="form-group col-md-6">
+                    <%= f.label :state, 'State:', class:"d-block text-black-50" %>
+                    <%= f.text_field :state, id:'administrative_area_level_1', class:"form-control-lg form-control pl-2", readonly:'true' %>
+  								</div>
+  								<div class="form-group col-md-6">
+                    <%= f.label :country, 'Country:', class:"d-block text-black-50" %>
+                    <%= f.text_field :country, id:'country', class:"form-control-lg form-control pl-2", readonly:'true' %>
+  								</div>
+  							</div>
+  						</div>
+  					</div>
+          <% end %>
+
+          <hr>
+					<div class="text-right my-4">
+            <%= f.button 'DELETE ACCOUNT', type:"button", class:"btn btn-danger d-block d-md-inline button-block ml-md-2", 'data-toggle': "modal", 'data-target': "#delete_account" %>
+            <%= f.button 'SAVE CHANGES', class:'btn btn-info ml-md-2 button-block submit' %>
+					</div>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div
+
+<!-- Modal to switch accounts -->
+<%= form_with url:switch_account_path, local: true do |f| %>
+	<div class="modal fade" role="dialog" tabindex="-1" id="switchAccount">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Select Account:</h5>
+          <%= f.button 'button', class:"close", "data-dismiss": "modal", "aria-label": "Close" do %>
+						<span aria-hidden="true">×</span>
+					<% end %>
+				</div>
+				<div class="modal-body">
+          <%= select_tag "id", options_from_collection_for_select(@current_user.profile.accounts, "id", "account_name"), class:"custom-select custom-select-lg" %>
+				</div>
+				<div class="modal-footer">
+          <%= f.button 'SWITCH ACCOUNT', class:"btn btn-info" %>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>
+
+<!-- Modal to delete accounts -->
+<%= form_with url: account_path(@account.id), method: 'delete', local: true do |f| %>
+	<div class="modal fade" role="dialog" tabindex="-1" id="delete_account">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Delete Account:</h5>
+          <%= button_tag 'button', class:"close", "data-dismiss": "modal", "aria-label": "Close" do %>
+						<span aria-hidden="true">×</span>
+					<% end %>
+				</div>
+				<div class="modal-body">
+					<h6 class="text-danger mb-0">
+						Type&nbsp;<strong
+							><span style="text-decoration: underline;">DELETE</span>&nbsp;</strong
+						>to delete your account.&nbsp;<br />
+					</h6>
+					<p>Note that this action cannot be reversed.</p>
+          <%= text_field_tag 'delete', nil, class:"form-control-lg form-control" %>
+				</div>
+				<div class="modal-footer">
+          <%= f.button 'DELETE ACCOUNT', class:"btn btn-danger submit" %>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>

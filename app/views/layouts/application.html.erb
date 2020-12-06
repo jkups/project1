@@ -50,12 +50,11 @@
                     <%= link_to edit_profile_path(@current_user.profile.id), class:'dropdown-item py-3 pl-3 border-bottom' do %>
                     <i class="fas fa-user-circle d-none d-md-inline text-info mr-3"></i>My Profile
                     <% end %>
-                    <a
-                      role="presentation"
-                      class="dropdown-item py-3 pl-3 border-bottom"
-                      href="/account"
-                      ><i class="fas fa-folder-open d-none d-md-inline text-info mr-3"></i>Accounts</a
-                    >
+                    <% active_acc = @current_user.profile.accounts.filter{|item| item.account_active == true}.first.id %>
+                    <%= link_to edit_account_path(active_acc), class:'dropdown-item py-3 pl-3' do %>
+                    <i class="fas fa-folder-open d-none d-md-inline text-info mr-3"></i>Accounts
+                    <% end %>
+
                     <%= link_to login_path, method: 'delete', class:'dropdown-item py-3 pl-3' do %>
                     <i class="fas fa-sign-out-alt d-none d-md-inline text-info mr-3"></i>Sign Out
                     <% end %>

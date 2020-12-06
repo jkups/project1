@@ -73,28 +73,23 @@ function geolocate() {
 	}
 }
 
-function autoManual(e){
-  const streetNumber = document.querySelector('#street_number');
-  const route = document.querySelector('#route');
-  const locality = document.querySelector('#locality');
-  const postalCode = document.querySelector('#postal_code');
-  const state = document.querySelector('#administrative_area_level_1');
-  const country = document.querySelector('#country');
+$(document).ready(function(){
+	// Toggle manual address entry
+	$('#toggleAddress').click(function(){
+		console.log("here");
+		if($(this).prop('checked')){
+			$('#street_number, #route, #locality, #postal_code, #administrative_area_level_1, #country').attr('readonly', false);
+		} else {
+			$('#street_number, #route, #locality, #postal_code, #administrative_area_level_1, #country').attr('readonly', true);
+		}
+	});
 
-	if(e.checked){
-		streetNumber.readOnly = false;
-		route.readOnly = false;
-		locality.readOnly = false;
-		postalCode.readOnly = false;
-		state.readOnly = false;
-		country.readOnly = false;
-
-	} else {
-    streetNumber.readOnly = true;
-    route.readOnly = true;
-		locality.readOnly = true;
-		postalCode.readOnly = true;
-		state.readOnly = true;
-		country.readOnly = true;
-	}
-};
+	//Toggle company details
+	$('#toggleCompany').change(function(){
+		if($(this).val() === "Corporate Account"){
+			$("#corporateIdentity").show();
+		} else {
+			$("#corporateIdentity").hide();
+		}
+	});
+})
