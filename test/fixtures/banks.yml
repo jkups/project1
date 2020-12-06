@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bank_location: MyString
+  bank_code: MyString
+  bank_name: MyString
+  account_number: MyString
+  account_name: MyString
+  provider_account_id: MyString
+  provider_id: MyString
+  transfercode_type: MyString
+  transfercode_id: MyString
+  last_verified: 2020-12-05
+  user_id: 1
+  account_id: 1
+
+two:
+  bank_location: MyString
+  bank_code: MyString
+  bank_name: MyString
+  account_number: MyString
+  account_name: MyString
+  provider_account_id: MyString
+  provider_id: MyString
+  transfercode_type: MyString
+  transfercode_id: MyString
+  last_verified: 2020-12-05
+  user_id: 1
+  account_id: 1

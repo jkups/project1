@@ -1,0 +1,27 @@
+<div class="wrapper">
+  <% if flash[:error] %>
+    <div class="notice">
+      <div class="container">
+        <i class="fas fa-ban"></i> <%= flash[:error] %>. <span>Please try again.</span>
+      </div>
+    </div>
+  <% end %>
+  <div class="container">
+    <div class="flex-box">
+      <div class="login">
+        <div class="logo">
+          <i class="fas fa-blog"></i>
+        </div>
+        <%= form_with url:login_path, local:true do |f| %>
+          <%= f.text_field :email, placeholder: 'Email Address' %>
+          <%= f.password_field :password, placeholder: 'Password'%>
+          <%= link_to 'Forgot your password?', new_user_path, class: 'forgot' %>
+          <%= f.button 'Log In' %>
+          <%= link_to 'You have not created a profile? Sign up.', new_user_path, class: 'signup' %>
+
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

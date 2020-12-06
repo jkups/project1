@@ -1,0 +1,52 @@
+<div class="wrapper">
+  <% if flash[:error] %>
+    <div class="error">
+      <div class="container">
+        <i class="fas fa-ban"></i> <%= flash[:error] %>. <span>Please try again.</span>
+      </div>
+    </div>
+  <% end %>
+  <div class="container">
+    <div class="flex-box">
+      <div class="login">
+        <div class="logo">
+          <i class="fas fa-blog"></i>
+        </div>
+        <%= form_with model: @user, local: true do |f| %>
+          <div>
+            <% if @user.errors.full_messages_for(:first_name).any? %>
+              <span class="error">
+                <%= @user.errors.full_messages_for(:first_name)[0] %>
+              </span>
+            <% end %>
+            <%= f.text_field :first_name, placeholder: 'First Name', class:"left" %>
+
+            <% if @user.errors.full_messages_for(:last_name).any? %>
+              <span class="error">
+                <%= @user.errors.full_messages_for(:last_name)[0] %>
+              </span>
+            <% end %>
+            <%= f.text_field :last_name, placeholder: 'Last Name', class:"right" %>
+          </div>
+
+          <% if @user.errors.full_messages_for(:email).any? %>
+            <span class="error">
+              <%= @user.errors.full_messages_for(:email)[0] %>
+            </span>
+          <% end %>
+          <%= f.text_field :email, placeholder: 'Email Address' %>
+
+          <% if @user.errors.full_messages_for(:password).any? %>
+            <span class="error">
+              <%= @user.errors.full_messages_for(:password)[0] %>
+            </span>
+          <% end %>
+          <%= f.text_field :password, placeholder:'Password' %>
+          
+          <%= f.button 'Sign Up' %>
+          <%= link_to 'You already have a profile? Login here.', login_path, class: 'signup' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
