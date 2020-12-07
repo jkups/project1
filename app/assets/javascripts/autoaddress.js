@@ -40,7 +40,7 @@ function fillInAddress() {
 	var place = autocomplete.getPlace();
 
 	// Remove entries from all address fields
-	for (let address_type in componentForm){
+	for (const address_type in componentForm){
 		document.getElementById(address_type).value = '';
 	}
 
