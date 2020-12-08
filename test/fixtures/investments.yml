@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  invest_amount: 1.5
+  invest_share: 1
+  trxn_fee: 1.5
+  total_due: 1.5
+  split_pay: false
+  trxn_ref: MyString
+  trxn_code: MyString
+  trxn_status: MyString
+  trxn_message: MyString
+  pay_method: MyString
+  property_id: 1
+  account_id: 1
+
+two:
+  invest_amount: 1.5
+  invest_share: 1
+  trxn_fee: 1.5
+  total_due: 1.5
+  split_pay: false
+  trxn_ref: MyString
+  trxn_code: MyString
+  trxn_status: MyString
+  trxn_message: MyString
+  pay_method: MyString
+  property_id: 1
+  account_id: 1

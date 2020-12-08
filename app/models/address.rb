@@ -1,4 +1,4 @@
 class Address < ApplicationRecord
-  belongs_to :profile
-  # belongs_to :account
+  belongs_to :user, optional: true
+  belongs_to :account, optional: true
 end

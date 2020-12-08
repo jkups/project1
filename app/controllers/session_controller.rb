@@ -1,6 +1,6 @@
 class SessionController < ApplicationController
   def new
-    redirect_to edit_profile_path(@current_user.id) if @current_user.present?
+    redirect_to edit_user_path(@current_user.id) if @current_user.present?
   end
 
   def create
@@ -8,7 +8,7 @@ class SessionController < ApplicationController
 
     if user.present? && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to edit_profile_path(user.id)
+      redirect_to edit_user_path(user.id)
 
     else
       flash[:error] = 'Invalid email or Password'

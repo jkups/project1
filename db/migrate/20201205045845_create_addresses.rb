@@ -7,7 +7,8 @@ class CreateAddresses < ActiveRecord::Migration[5.2]
       t.string :zipcode
       t.string :state
       t.string :country
-      t.integer :profile_id
+      t.integer :user_id
+      t.integer :account_id
 
       t.timestamps
     end

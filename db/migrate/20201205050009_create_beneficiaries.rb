@@ -7,7 +7,7 @@ class CreateBeneficiaries < ActiveRecord::Migration[5.2]
       t.string :mobile_number
       t.string :relationship
       t.string :level
-      t.integer :profile_id
+      t.integer :user_id
 
       t.timestamps
     end

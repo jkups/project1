@@ -1,9 +1,8 @@
 class Account < ApplicationRecord
-  # has_one :address
-  belongs_to :profile
+  belongs_to :user
   has_one :bank
-  has_one :company
-  has_one :legal_address, dependent: :destroy
+  has_many :investment
+  has_one :address, dependent: :destroy
 
-  accepts_nested_attributes_for :legal_address, :profile
+  accepts_nested_attributes_for :address, :user
 end

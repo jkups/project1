@@ -11,13 +11,10 @@ class UsersController < ApplicationController
     @user = User.create user_params
 
     if @user.persisted?
-      profile = Profile.create user_id: @user.id, first_name: @user.first_name, last_name: @user.last_name, email: @user.email
-
-      Address.create profile_id: profile.id
-      Identity.create profile_id: profile.id
+      Address.create user_id: @user.id
 
       session[:user_id] = @user.id
-      redirect_to edit_profile_path(profile.id)
+      redirect_to edit_user_path(@user.id)
     else
       render :new and return
     end
@@ -28,13 +25,20 @@ class UsersController < ApplicationController
   #
   # end
 
-  # def edit
-  #   redirect_to root_path unless @current_user.present?
-  #
-  # end
+  def edit
+    redirect_to root_path unless @current_user.present?
+    @user = User.find params[:id]
+  end
 
   def update
-    
+    user = User.find params[:id]
+    if user.id != @current_user.id
+      redirect_to login_path
+      return
+    end
+
+    user.update user_params
+    redirect_to edit_user_path(user.id)
   end
 
   def destroy
@@ -44,7 +48,8 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :first_name, :last_name, :email, :password,
+      :first_name, :middle_name, :last_name, :email, :password, :mobile_number, :dial_code, :document_id, :document_type, :expiry_date, :issue_country,
+      address_attributes: [ :id, :street_number, :street_name, :suburb, :zipcode, :state, :country]
     )
   end
 

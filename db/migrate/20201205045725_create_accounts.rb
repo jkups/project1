@@ -7,7 +7,7 @@ class CreateAccounts < ActiveRecord::Migration[5.2]
       t.boolean :account_active
       t.string :company_name
       t.string :reg_number
-      t.integer :profile_id
+      t.integer :user_id
 
       t.timestamps
     end

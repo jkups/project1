@@ -1,5 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300;400;600;700&display=swap');
 
+.quick-view {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    margin: 0 15px;
+    background-color: rgba(0,0,0,0.23);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.quick-view:hover {
+    display: flex;
+    opacity: 1;
+}
+a:hover {
+    text-decoration: none !important;
+}
+
+.property-status {
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    padding: 5px 15px;
+}
+
+.property-fact-disclaimer {
+    font-size: 8pt;
+    margin-top: 10px;
+}
+
+.pay-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 500;
+}
+
 body {
   margin: 0;
   font-family: 'Signika Negative', sans-serif;

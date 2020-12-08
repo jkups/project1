@@ -1,2 +1,149 @@
-<h1>User#edit</h1>
+<!-- <h1>User#edit</h1>
 <p>Find me in app/views/user/edit.html.erb</p>
+<%= form_with model:@user, local: true do |f| %>
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %>
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %>
+
+  <%= f.submit %>
+
+<% end %> -->
+
+
+<div class="container py-5">
+  <h4 class="text-info  mt-md-4 mb-5">User Profile<br></h4>
+  <div class="row">
+    <div class="col-lg-2">
+    	<ul id="sidebar" class="list-unstyled d-flex d-lg-block">
+    		<li class="text-center text-lg-left flex-fill">
+    			<a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs active" href="<%= edit_user_path(@user.id) %>">Personal Details<br></a>
+    		</li>
+    		<li class="text-center text-lg-left flex-fill">
+    			<a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="/beneficiary">Beneficiary<br></a>
+    		</li>
+    		<li class="text-center text-lg-left flex-fill">
+    			<a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="/settings">Settings<br></a>
+    		</li>
+    	</ul>
+    </div>
+		<div class="col">
+
+      <%= form_with model: @user, local: true do |f| %>
+				<input id="intlMobile" type="hidden" name="intlMobile">
+				<input id="dialCode" type="hidden" name="dialCode">
+
+				<div class="border rounded p-4">
+					<div>
+						<h5>Name and Contact Details</h5>
+						<hr class="mb-4 border-info">
+						<div class="form-row">
+							<div class="form-group col-md-4">
+                <%= f.label :first_name, 'First Name:', class:"d-block text-black-50" %>
+                <%= f.text_field :first_name, class:"form-control-lg form-control", disabled:"true", readonly:"true"%>
+							</div>
+							<div class="form-group col-md-4">
+                <%= f.label :middle_name, 'Middle Name:', class:"d-block text-black-50" %>
+                <%= f.text_field :middle_name, class:"form-control-lg form-control" %>
+							</div>
+							<div class="form-group col-md-4">
+                <%= f.label :last_name, 'Last Name:', class:"d-block text-black-50" %>
+                <%= f.text_field :last_name, class:"form-control-lg form-control", disabled:"true", readonly:"true"%>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+                <%= f.label :email, 'Email Address:', class:"d-block text-black-50" %>
+                <%= f.text_field :email, class:"form-control-lg form-control", disabled:"true", readonly:"true"%>
+							</div>
+							<div class="form-group col-md-6">
+                <%= f.label :mobile_number, 'Mobile Number:', class:"d-block text-black-50" %>
+                <%= f.text_field :mobile_number, class:"form-control-lg form-control" %>
+							</div>
+						</div>
+					</div>
+
+          <div class="mt-4">
+						<h5>Identification</h5>
+						<hr class="mb-4 border-info">
+						<div id="personIdentity">
+							<div class="form-row">
+								<div class="form-group col-md-6">
+                  <%= f.label :document_type, 'Document Type:', class:"d-block text-black-50"%>
+                  <%= f.select :document_type, [['International Passport', 'International Passport'], ['Driver License', 'Driver License']], {}, {class:"custom-select custom-select-lg form-control"} %>
+								</div>
+								<div class="form-group col-md-6">
+                  <%= f.label :document_id, 'ID Number:', class:"d-block text-black-50" %>
+                  <%= f.text_field :document_id, class:"form-control-lg form-control" %>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+                  <%= f.label :expiry_date, 'Expiry Date:', class:"d-block text-black-50" %>
+                  <%= f.date_field :expiry_date, class:"form-control-lg date-component form-control" %>
+								</div>
+								<div class="form-group col-md-6">
+                  <%= f.label :issue_country, 'Country of Issue:', class:"d-block text-black-50" %>
+                  <%= f.text_field :issue_country, class:"form-control-lg form-control" %>
+								</div>
+							</div>
+						</div>
+					</div>
+
+          <%= f.fields_for :address do |f| %>
+					  <div class="mt-4">
+  						<h5>Physical Address</h5>
+  						<hr class="mb-4 border-info">
+  						<div id="locationField" class="form-row">
+  							<div class="form-group col-12 mb-0">
+  								<input id="autocomplete" onfocus="geolocate()" type="text" class="form-control-lg form-control rounded-0 pac-target-input" name="address" placeholder="Enter your address..." autocomplete="off">
+  							</div>
+  						</div>
+  						<div class="text-right bg-light custom-control custom-switch pr-4 py-2 border-bottom">
+  							<input type="checkbox" id="manualAddress" onclick="autoManual(this)" class="custom-control-input" name="manualAddress">
+  							<label class="custom-control-label" for="manualAddress">Manually Fill Address</label>
+  						</div>
+  						<div class="p-4 bg-light">
+                <%= f.label :street_name, 'Street Address:', class:"d-block text-black-50" %>
+  							<div class="form-row">
+  								<div class="form-group col-lg-2 col-3">
+                    <%= f.text_field :street_number, id:'street_number', class:"form-control-lg form-control pl-2", readonly:'true' %>
+  								</div>
+  								<div class="form-group col-lg-10 col-9">
+                    <%= f.text_field :street_name, id:'route', class:"form-control-lg form-control pl-2", readonly:'true' %>
+  								</div>
+  							</div>
+  							<div class="form-row">
+  								<div class="form-group col-md-6">
+                    <%= f.label :suburb, 'Suburb / City:', class:"d-block text-black-50" %>
+                    <%= f.text_field :suburb, id:'locality', class:"form-control-lg form-control pl-2", readonly:'true' %>
+  								</div>
+  								<div class="form-group col-md-6">
+                    <%= f.label :zipcode, 'Zip Code:', class:"d-block text-black-50"%>
+                    <%= f.text_field :zipcode, id:'postal_code', class:"form-control-lg form-control pl-2", readonly:'true' %>
+  								</div>
+  							</div>
+  							<div class="form-row">
+  								<div class="form-group col-md-6">
+                    <%= f.label :state, 'State:', class:"d-block text-black-50" %>
+                    <%= f.text_field :state, id:'administrative_area_level_1', class:"form-control-lg form-control pl-2", readonly:'true' %>
+  								</div>
+  								<div class="form-group col-md-6">
+                    <%= f.label :country, 'Country:', class:"d-block text-black-50" %>
+                    <%= f.text_field :country, id:'country', class:"form-control-lg form-control pl-2", readonly:'true' %>
+  								</div>
+  							</div>
+  						</div>
+  					</div>
+          <% end %>
+
+          <hr>
+					<div class="text-right my-4">
+            <%= f.button 'SAVE CHANGES', class:'btn btn-info ml-md-2 button-block submit' %>
+					</div>
+				</div>
+
+			<% end %>
+		</div>
+	</div>
+</div

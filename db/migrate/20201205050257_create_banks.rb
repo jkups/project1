@@ -11,7 +11,7 @@ class CreateBanks < ActiveRecord::Migration[5.2]
       t.string :transfercode_type
       t.string :transfercode_id
       t.date :last_verified
-      t.integer :profile_id
+      t.integer :user_id
       t.integer :account_id
 
       t.timestamps

@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  peroperty_id: MyString
+  status: MyString
+  name: MyString
+  region: MyString
+  value: 1.5
+  currency: MyString
+  total_shares: 1
+  available_shares: 1
+  min_shares: 1
+  description: MyText
+  investment_case: MyText
+  prop_type: MyString
+
+two:
+  peroperty_id: MyString
+  status: MyString
+  name: MyString
+  region: MyString
+  value: 1.5
+  currency: MyString
+  total_shares: 1
+  available_shares: 1
+  min_shares: 1
+  description: MyText
+  investment_case: MyText
+  prop_type: MyString

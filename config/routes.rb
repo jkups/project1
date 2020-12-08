@@ -7,8 +7,17 @@ Rails.application.routes.draw do
 
   #user routes - index, create, show, update, destroy
   resources :users
-  resources :profiles
   resources :accounts
+  resources :properties
 
+  #checkout and payment routes
+  get '/properties/checkout/:id' => 'checkout#new', as:'new_checkout'
+  post '/properties/checkout/:id' => 'checkout#create', as:'checkout'
+  get '/properties/pay/:id' => 'pay#new', as:'new_pay'
+  post '/properties/pay/:id' => 'pay#create', as:'pay'
+
+  #switch investment account - only one can be active at a time
   post '/accounts/switch' => 'accounts#switch', as: 'switch_account'
+
+
 end

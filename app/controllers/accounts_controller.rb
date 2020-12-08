@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
   end
 
   def switch
-    @current_user.profile.accounts.each do |account|
+    @current_user.accounts.each do |account|
       account.account_active = false
       account.save
     end
@@ -18,38 +18,32 @@ class AccountsController < ApplicationController
   def update
     redirect_to root_path and return unless @current_user.present?
     @account = Account.find params[:id]
-    @account.update update_account_params
+    @account.update account_params
+
     redirect_to edit_account_path(@account.id)
   end
 
   def create
-    @account = Account.create(
-      account_number: (rand() * 100000000).round,
-      account_name: params[:account][:account_name],
-      account_type: params[:account][:account_type],
-      company_name: params[:account][:company_name],
-      reg_number: params[:account][:reg_number],
-      account_active: true,
-      profile_id: @current_user.profile.id
-    )
+    @account = Account.new account_params
+    @account.account_number = (rand() * 100000000).round
+    @account.account_active = true
+    @account.user_id = @current_user.id
+
+    @account.save
 
     if @account.persisted?
+      default_address = Address.find_by user_id: @current_user.id
+      account_address = default_address.dup
+      account_address.account_id = @account.id
+      account_address.user_id = nil
+      account_address.save
+
       Account.all.each do |account|
         if account.id != @account.id
           account.account_active = false
           account.save
         end
       end
-
-      LegalAddress.create(
-        street_number: params[:account][:street_number],
-        street_name: params[:account][:street_name],
-        suburb: params[:account][:suburb],
-        zipcode: params[:account][:zipcode],
-        state: params[:account][:state],
-        country: params[:account][:country],
-        account_id: @account.id
-      )
 
       redirect_to edit_account_path(@account.id)
     else
@@ -58,8 +52,8 @@ class AccountsController < ApplicationController
   end
 
   def new
-    redirect_to root_path and return unless @current_user.present?
-    @account = Account.new profile_id: @current_user.profile.id
+    redirect_to login_path and return unless @current_user.present?
+    @account = Account.new user_id: @current_user.id
   end
 
   def destroy
@@ -88,10 +82,10 @@ class AccountsController < ApplicationController
 
   private
 
-  def update_account_params
+  def account_params
     params.require(:account).permit(
-      :account_name,
-      legal_address_attributes: [ :id, :street_number, :street_name, :suburb, :zipcode, :state, :country]
+      :account_name, :account_type, :company_name, :reg_number,
+      address_attributes: [ :id, :street_number, :street_name, :suburb, :zipcode, :state, :country]
     )
   end
 
