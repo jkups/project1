@@ -40,6 +40,17 @@ a:hover {
     z-index: 500;
 }
 
+.pay-image {
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+#paymethod .custom-control-label::before {
+    top: 0.75em !important;
+}
+#paymethod .custom-control-label::after {
+    top: 0.75em !important;
+}
 body {
   margin: 0;
   font-family: 'Signika Negative', sans-serif;
@@ -208,8 +219,8 @@ input:focus {
   color: #17a2b8;
 }
 
-.account-form {
+/* .account-form {
   border: 1px solid lightgrey;
   border-radius: 5px;
   padding: 20px;
-}
+} */

@@ -8,7 +8,7 @@ class CreateInvestments < ActiveRecord::Migration[5.2]
       t.boolean :split_pay
       t.string :trxn_ref
       t.string :trxn_code
-      t.string :trxn_status
+      t.string :trxn_status, default: 'pending'
       t.string :trxn_message
       t.string :pay_method
       t.integer :property_id

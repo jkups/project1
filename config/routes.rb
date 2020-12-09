@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :properties
 
   #checkout and payment routes
+  get '/properties/checkout/price' => 'checkout#price', as:'checkout_price'
   get '/properties/checkout/:id' => 'checkout#new', as:'new_checkout'
   post '/properties/checkout/:id' => 'checkout#create', as:'checkout'
   get '/properties/pay/:id' => 'pay#new', as:'new_pay'

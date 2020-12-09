@@ -12,7 +12,7 @@ Property.create!(
   prop_id: 'PID' + (rand() * 1000).round.to_s,
   status: 'active',
   name: 'Oark Park',
-  address: '16 Stanford Avenue, La Mesa California, USA.',
+  address: '16 Staghorn Terrace, Point Cook Victoria',
   region: 'USA',
   prop_type: 'Single Family Home',
   value: 650000,

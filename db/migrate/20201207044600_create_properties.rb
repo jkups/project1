@@ -5,6 +5,8 @@
       t.string :status
       t.string :name
       t.string :address
+      t.float :latitude
+      t.float :longitude
       t.string :region
       t.float :value
       t.string :currency

@@ -15,8 +15,8 @@
 </div>
 
 	<%= form_with url: checkout_path, local: true do |f| %>
-		<input type="hidden" name="propertyId" value="5f6734d1e7179a6ea51fa4f2">
-		<input type="hidden" name="accountId" value="5f67374a584ad100179e5a48">
+		<input type="hidden" name="buy_shares" id="buy_shares" value="<% @property.min_shares %>">
+		<input type="hidden" name="account_id" value="<%= @account.id %>">
 
 		<div class="row row-cols-1 row-cols-lg-2">
 			<div class="col mb-4">
@@ -41,7 +41,7 @@
 							<%= f.label "Enter number of units to buy", class:"d-block" %>
 							<!-- <label class="d-block">&nbsp;Enter number of units to buy</label> -->
 						</div>
-						<%= f.number_field "input_shares", class:"border rounded form-control-lg w-100" %>
+						<%= f.number_field "input_shares", class:"border rounded form-control-lg w-100", value:@property.min_shares %>
 						<!-- <input id="inputShares" name="inputshares" class="border rounded form-control-lg w-100" value="1" type="number"> -->
 						<p class="mt-2 mb-0 text-black-50"><i><%= @property.available_shares %> units available</i></p>
 					</div>
@@ -56,7 +56,7 @@
 								<em><%= @account.account_name %></em>
 							</strong>
 							<em> investment account will secure</em>
-							<span id="review_shares">1</span> unit share in <%= @property.name > at
+							<span id="review_shares">1</span> unit share in <%= @property.name %> at
 							$<%= @property.value / @property.total_shares %>/share.
 						</p>
 
@@ -71,8 +71,8 @@
 								<li id="inv">$ <%= (@property.value / @property.total_shares) * @property.min_shares %></li>
 							</ul>
 							<ul class="list-unstyled text-secondary d-flex mb-1">
-								<li class="flex-fill">REIT Fees</li>
-								<li id="reit">$ 65.00</li>
+								<li class="flex-fill">Transaction Fees</li>
+								<li id="fees">$ 65.00</li>
 							</ul>
 							<!-- <ul class="list-unstyled text-secondary d-flex mb-1">
 								<li class="flex-fill">Transaction Charge</li>
@@ -92,3 +92,48 @@
 		</div>
 	<% end %>
 </div>
+
+<script type="text/javascript">
+	$('#input_shares').on('blur', function(){
+		let availableShare = <%= @property.available_shares %>;
+		let minimumShare = <%= @property.min_shares %>
+
+		if(Number(this.value) < minimumShare){
+			this.value = minimumShare;
+
+		} else if(Number(this.value) > availableShare){
+			this.value  = availableShare;
+
+		} else if(Number(this.value % 1 != 0)){
+			this.value = Math.round(this.value);
+		}
+
+		$('#review_shares').text(this.value);
+		$('#buy_shares').val(this.value);
+
+		calculatePricing(Number(this.value));
+
+	});
+
+	function calculatePricing(value){
+		$('#spinner').css('visibility', 'visible');
+		$('#payButton').attr('disabled', true)
+		const formatter = new Intl.NumberFormat('en-US', {
+			minimumFractionDigits: 2
+		});
+
+		let request = $.ajax({
+			url: '<%= checkout_price_path %>',
+			data: { id: '<%= @property.id %>', input_shares: value },
+			dataType: 'json'
+		});
+
+		request.done(function (data) {
+			$('#inv').text('$ ' + formatter.format(data.investment));
+			$('#fees').text('$ ' + formatter.format(data.trxn_fees));
+			$('#total').text('$ ' + formatter.format(data.total_due));
+			$('#spinner').css("visibility", "hidden");
+			$('#payButton').attr('disabled', false)
+		});
+	}
+</script>

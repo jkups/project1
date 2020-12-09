@@ -1,0 +1,335 @@
+<div class="container mt-5">
+
+  <div class="d-md-flex my-md-4">
+  	<h4 class="text-info flex-fill">Make Payment<br></h4>
+  	<div class="text-left text-md-right bg-light shadow-sm my-4 my-md-0 p-3 mr-0 rounded active-account">
+  		<h5 class="mb-0">Mine Account</h5>
+  		<div>
+  			<span class="text-secondary" style="font-size: 14px;"><em>Account No: 697510720</em><br></span>
+  			<div>
+
+
+  			</div>
+  		</div>
+  	</div>
+  </div>
+
+  <%= form_with url: pay_path, local:true do |f| %>
+	<!-- <form action="/pay" method="POST" class="account-form card-payment" onsubmit="return processing(this);"> -->
+    <input id="totalDue" type="hidden" name="totalDue" value="<%= @investment.total_due %>">
+
+		<div>
+			<ul class="list-unstyled border rounded shadow-sm d-flex">
+				<li class="bg-light flex-fill p-3 pay-image" style="background-image:url('<%= @investment.property.prop_image %>.jpg')"></li>
+				<li class="flex-fill position-relative pb-md-5" style="max-width:750px">
+					<div class="p-4 p-md-5">
+						<diV class="d-md-flex align-items-end">
+							<h5 class="text-info flex-fill mb-5 mb-md-0">Choose a payment method</h5>
+							<div class="text-md-right">
+								<span class="badge badge-pill badge-warning text-white">total due</span>
+								<h4 class="text-info mb-0"><strong>$ <%= @investment.total_due %></strong></h4>
+							</div>
+						</diV>
+						<div id="paymethod" class="text-black-50 mt-4" style="font-size:1.1em">
+
+							<div class="border rounded mb-2">
+								<div class="align-items-center custom-control custom-radio pl-3" style="display:flex">
+									<input
+										type="radio"
+										id="card"
+										class="custom-control-input"
+										name="paymethod"
+										value="card"
+									/>
+									<label class="flex-fill custom-control-label font-weight-bold py-2" style="cursor:pointer;" for="card">Credit/Debit Card</label>
+									<div class="py-2 text-center bg-light rounded-right" style="width:50px;"><i class="fas fa-credit-card"></i></div>
+								</div>
+								<div id="collapseCard" class="p-4 border-top text-black-50 collapse" style="font-size:0.9em;">
+									<div class="form-row">
+										<div class="form-group col-md-6">
+											<label for="cardholder-name" class="d-block"><i class="fas fa-user mr-2 text-info"></i>Name on Card</label>
+											<div id="cardholder-name" class="form-control-lg form-control cardholderName"></div>
+										</div>
+										<div class="form-group col-md-6">
+											<label for="card-number" class="d-block"><i class="far fa-credit-card mr-2 text-info"></i>Card Number</label>
+											<div id="card-number" class="form-control-lg form-control number"></div>
+											<div class="position-absolute" style="top:40px;">
+												<img id="card-logo" src="">
+											</div>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-md-6">
+											<label for="expiration" class="d-block text-black-50"><i class="far fa-calendar-alt mr-2 text-info"></i>Expiration Date</label>
+											<div id="expiration" class="form-control-lg form-control expirationDate"></div>
+										</div>
+										<div class="form-group col-md-6">
+											<label for="cvv" class="d-block text-black-50"><i class="fas fa-key mr-2 text-info"></i>CVV</label>
+											<div id="cvv" class="form-control-lg form-control"></div>
+										</div>
+									</div>
+									<div class="d-md-inline" style="font-size:24px">
+										<i class="fab fa-cc-visa mr-2"></i><i class="fab fa-cc-mastercard mr-2"></i><i class="fab fa-cc-amex"></i>
+									</div>
+									<span class="small float-md-right mt-2"><em>Powered by Braintree. A PayPal service.</em></span>
+								</div>
+							</div>
+
+							<div class="border rounded align-items-center custom-control custom-radio pl-3 mb-2" style="display:flex">
+								<input
+									type="radio"
+									id="paypal"
+									class="custom-control-input"
+									name="paymethod"
+									value="paypal"
+								/>
+								<label class="flex-fill custom-control-label font-weight-bold py-2" style="cursor:pointer;" for="paypal">PayPal</label>
+								<div class="py-2 text-center bg-light rounded-right" style="width:50px;"><i class="fab fa-paypal"></i></div>
+
+							</div>
+						</div>
+						<p class="mt-4 mb-1 font-italic">
+							<strong>
+								<em><%= @investment.account.account_name %></em>
+							</strong>
+							<em> investment account will secure</em>
+							<span><%= @investment.invest_share %></span> unit share in <%= @investment.property.name %>.
+						</p>
+						<div class="bg-light rounded py-3 px-4 mt-5 small text-secondary">
+							<em>
+								<p class="mb-1"><strong>Important Note:</strong></p>
+								<p class="mb-0"><%= @investment.property.available_shares %> units of <%= @investment.property.name %> is still available to acquire.</p>
+								<p class="mb-0">
+									Payment gateways charge extra fees which will show up on your bank account statement.
+								</p>
+							</em>
+						</div>
+					</div>
+					<div class="pay-button">
+						<div id="paypal-button" class="position-absolute btn btn-block btn-lg px-0 py-0 pt-1" style="bottom:0;z-index:500;opacity:0"></div>
+						<button id="submit-button" class="btn btn-info btn-block btn-lg rounded-0 py-3 mt-0" type="submit" name="submit">Pay</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+	<% end %>
+</div>
+
+<script src="https://www.paypal.com/sdk/js?client-id=AaYcZ3JvFqxpdjYfsHt1842yNLn1aA2cruouM--d0DlJ_0HuXNrDtHsNr3hbCEb0PEVV4E8b9GK3m8W6" data-namespace="paypal_sdk"></script>
+<script src="https://js.braintreegateway.com/web/3.65.0/js/client.min.js"></script>
+<script src="https://js.braintreegateway.com/web/3.65.0/js/hosted-fields.min.js"></script>
+<script src="https://js.braintreegateway.com/web/3.65.0/js/paypal-checkout.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#paypal-button').css('display', 'none');
+		$('#submit-button').prop('disabled', true);
+	});
+
+
+	let form = $('form');
+	let submitBtn = $('#submit-button');
+
+	$('input[name=paymethod]').on('click', function(){
+		$('#submit-button').prop('disabled', false);
+
+		if($('#card').is(':checked')){
+			$('#collapseCard').collapse('show')
+		} else {
+			$('#collapseCard').collapse('hide')
+		}
+
+		if($('#paypal').is(':checked')){
+			$('#paypal-button').css('display', 'block');
+		} else {
+			$('#paypal-button').css('display', 'none');
+		}
+	})
+
+
+	let stylesConfig = {
+		'input': {
+		  'font-size': '18px',
+		  'color': '#17a2b8'
+		},
+		'input.invalid': {
+		  'color': 'red'
+		},
+		'input.valid': {
+		  'color': 'green'
+		}
+	};
+
+	let fieldsConfig = {
+		cardholderName: {
+			selector: '#cardholder-name',
+			placeholder: 'John Doe'
+		},
+		number: {
+		  selector: '#card-number',
+		  placeholder: '4111 1111 1111 1111'
+		},
+		cvv: {
+		  selector: '#cvv',
+		  placeholder: '123'
+		},
+		expirationDate: {
+		  selector: '#expiration',
+		  placeholder: 'MM/YY'
+		}
+	};
+
+	//create braintree client
+	let clientCreated = braintree.client.create({ authorization: 'sandbox_q7bzcx2z_qjd7x8wgzkgmfrz5' });
+
+	//setup card payment
+	let hostedFields = clientCreated.then(function(client) {
+	  return braintree.hostedFields.create({
+  		client: client,
+  		styles: stylesConfig,
+  		fields: fieldsConfig
+	  });
+	})
+
+	hostedFields.then(function(hostedFields) {
+		// submitBtn.setAttribute('disabled', 'disabled');
+
+		hostedFields.on('empty', function (event) {
+			$('.' + event.emittedBy).css('border-bottom-color', '');
+			$('#card-logo').prop('src', '');
+		})
+
+		hostedFields.on('validityChange', function (event) {
+			var field = event.fields[event.emittedBy];
+
+			if (field.isValid) {
+				$('.' + event.emittedBy).css('border-bottom-color', 'green');
+			} else if (field.isPotentiallyValid) {
+			  $('.' + event.emittedBy).css('border-bottom-color', '#17a2b8');
+			} else {
+			  $('.' + event.emittedBy).css('border-bottom-color', 'red');
+			}
+		})
+
+		hostedFields.on('cardTypeChange', function (event) {
+			if (event.cards.length === 1) {
+				if(event.cards[0].type == 'master-card'){
+					$('#card-logo').prop('src', '/images/mastercard-logo.png');
+					$('#card-logo').parent().css('right', '10px');
+					$('#card-logo').width(50);
+
+				} else if(event.cards[0].type == 'visa'){
+					$('#card-logo').prop('src', '/images/visa-logo.png');
+					$('#card-logo').parent().css('right', '18px');
+					$('#card-logo').width(40);
+
+				} else {
+					$('#card-logo').prop('src', '');
+				}
+
+				if (event.cards[0].code.size === 4) {
+					hostedFields.setAttribute({
+						field: 'cvv',
+						attribute: 'placeholder',
+						value: '1234'
+					});
+
+				} else {
+					hostedFields.setAttribute({
+						field: 'cvv',
+						attribute: 'placeholder',
+						value: '123'
+					});
+				}
+			}
+
+		});
+
+		submitBtn.on('click', function (event) {
+			event.preventDefault();
+			let paymethod = $("input[name=paymethod]:checked").val();
+
+      if(paymethod == 'card'){
+				let state = hostedFields.getState();
+				let formValid = Object.keys(state.fields).every(function (key) {
+				  return state.fields[key].isValid;
+				});
+
+				if(formValid){
+					hostedFields.tokenize({ cardholderName: $('#cardholder-name').val() }).then(function(payload) {
+					  // send payload.nonce to server
+						$('#nonce').val(payload.nonce);
+						submitBtn.off().click();
+
+					}).catch(function (err) {
+					  // submitBtn.removeAttribute('disabled');
+					  console.error(err);
+					});
+
+				} else {
+					console.log('error')
+				}
+			}
+		})
+	})
+	.catch(function(hostedFieldsErr){
+		if (hostedFieldsErr) {
+			console.error(hostedFieldsErr);
+			return;
+		}
+	});
+
+	//setup paypal payment
+	let paypal = clientCreated.then(function (client) {
+		return braintree.paypalCheckout.create({
+			client: client
+		});
+	});
+
+	paypal.then(function (paypalCheckoutInstance) {
+	  // Load the PayPal JS SDK (see Load the PayPal JS SDK section)
+
+		return paypalCheckoutInstance.loadPayPalSDK({
+			currency: 'USD',
+			intent: 'capture'
+		})
+	}).then(function (paypalCheckoutInstance) {
+	  // The PayPal script is now loaded on the page and
+	  // window.paypal.Buttons is now available to use
+	  // render the PayPal button (see Render the PayPal Button section)
+		return paypal_sdk.Buttons({
+			fundingSource: paypal_sdk.FUNDING.PAYPAL,
+
+			createOrder: function () {
+				return paypalCheckoutInstance.createPayment({
+					flow: 'checkout', // Required
+					amount: $('#totalDue').val(), // Required
+					currency: 'USD', // Required, must match the currency passed in with loadPayPalSDK
+					intent: 'capture', // Must match the intent passed in with loadPayPalSDK
+					displayName: 'Brikalot'
+				});
+			},
+
+			onApprove: function (data, actions) {
+			  return paypalCheckoutInstance.tokenizePayment(data).then(function (payload) {
+				  // Submit `payload.nonce` to your server
+				  $('#nonce').val(payload.nonce);
+				  submitBtn.off().click();
+			  });
+			},
+
+			onCancel: function (data) {
+				submitBtn.off().click();
+			  // console.log('PayPal payment cancelled', JSON.stringify(data, 0, 2));
+			},
+
+			onError: function (err) {
+				submitBtn.off().click();
+			}
+
+		}).render('#paypal-button');
+	}).then(function () {
+  		// Handle component creation error
+	});
+
+</script>
