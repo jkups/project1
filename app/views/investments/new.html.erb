@@ -14,11 +14,10 @@
 	</div>
 </div>
 
-	<%= form_with url: checkout_path, local: true do |f| %>
+	<%= form_with url: investments_path(id:@property.id), local: true do |f| %>
 		<input type="hidden" name="buy_shares" id="buy_shares" value="<% @property.min_shares %>">
-		<input type="hidden" name="account_id" value="<%= @account.id %>">
-		<input id="nonce" type="hidden" name="nonce" value="">
-		
+    <input type="hidden" name="account_id" value="<%= @account.id %>">
+
 		<div class="row row-cols-1 row-cols-lg-2">
 			<div class="col mb-4">
 				<div class="border rounded shadow-sm h-100">
@@ -42,7 +41,7 @@
 							<%= f.label "Enter number of units to buy", class:"d-block" %>
 							<!-- <label class="d-block">&nbsp;Enter number of units to buy</label> -->
 						</div>
-						<%= f.number_field "input_shares", class:"border rounded form-control-lg w-100", value:@property.min_shares %>
+						<%= f.number_field "input_shares", class:"border rounded form-control-lg w-100", value: @property.min_shares %>
 						<!-- <input id="inputShares" name="inputshares" class="border rounded form-control-lg w-100" value="1" type="number"> -->
 						<p class="mt-2 mb-0 text-black-50"><i><%= @property.available_shares %> units available</i></p>
 					</div>
@@ -124,7 +123,7 @@
 		});
 
 		let request = $.ajax({
-			url: '<%= checkout_price_path %>',
+			url: '<%= update_price_path %>',
 			data: { id: '<%= @property.id %>', input_shares: value },
 			dataType: 'json'
 		});

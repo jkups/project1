@@ -17,7 +17,7 @@
   <%= form_with url: pay_path, local:true do |f| %>
 	<!-- <form action="/pay" method="POST" class="account-form card-payment" onsubmit="return processing(this);"> -->
     <input id="totalDue" type="hidden" name="totalDue" value="<%= @investment.total_due %>">
-
+    <input id="nonce" type="hidden" name="nonce" value="">
 		<div>
 			<ul class="list-unstyled border rounded shadow-sm d-flex">
 				<li class="bg-light flex-fill p-3 pay-image" style="background-image:url('<%= @investment.property.prop_image %>.jpg')"></li>
@@ -290,7 +290,7 @@
 	  // Load the PayPal JS SDK (see Load the PayPal JS SDK section)
 
 		return paypalCheckoutInstance.loadPayPalSDK({
-			currency: 'USD',
+			currency: 'AUD',
 			intent: 'capture'
 		})
 	}).then(function (paypalCheckoutInstance) {
@@ -304,7 +304,7 @@
 				return paypalCheckoutInstance.createPayment({
 					flow: 'checkout', // Required
 					amount: $('#totalDue').val(), // Required
-					currency: 'USD', // Required, must match the currency passed in with loadPayPalSDK
+					currency: 'AUD', // Required, must match the currency passed in with loadPayPalSDK
 					intent: 'capture', // Must match the intent passed in with loadPayPalSDK
 					displayName: 'Brikalot'
 				});

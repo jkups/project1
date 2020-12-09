@@ -8,12 +8,12 @@ Rails.application.routes.draw do
   #user routes - index, create, show, update, destroy
   resources :users
   resources :accounts
+  resources :investments
   resources :properties
 
   #checkout and payment routes
-  get '/properties/checkout/price' => 'checkout#price', as:'checkout_price'
-  get '/properties/checkout/:id' => 'checkout#new', as:'new_checkout'
-  post '/properties/checkout/:id' => 'checkout#create', as:'checkout'
+  get '/investments/update/price' => 'investments#update_price', as:'update_price'
+
   get '/properties/pay/:id' => 'pay#new', as:'new_pay'
   post '/properties/pay/:id' => 'pay#create', as:'pay'
 

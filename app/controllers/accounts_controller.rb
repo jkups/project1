@@ -1,7 +1,6 @@
 class AccountsController < ApplicationController
-  def index
-  end
-
+  before_action :check_if_logged_in
+  
   def switch
     @current_user.accounts.each do |account|
       account.account_active = false
@@ -13,6 +12,10 @@ class AccountsController < ApplicationController
     account.save
 
     redirect_to edit_account_path(account.id)
+  end
+
+  def index
+
   end
 
   def update

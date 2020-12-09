@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
+  before_action :check_if_logged_in
+
   # def index
   # end
 
   def new
-    redirect_to edit_profile_path(@current_user.id) if @current_user.present?
     @user = User.new
   end
 
@@ -26,7 +27,6 @@ class UsersController < ApplicationController
   # end
 
   def edit
-    redirect_to root_path unless @current_user.present?
     @user = User.find params[:id]
   end
 

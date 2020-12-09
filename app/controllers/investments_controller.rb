@@ -1,7 +1,8 @@
-class CheckoutController < ApplicationController
+class InvestmentsController < ApplicationController
   before_action :check_if_logged_in
 
   def calculate_price shares, property
+    p shares
     share_price = property.value / property.total_shares
     investment = shares.to_f * share_price
     trxn_fees = 0.1 * investment
@@ -10,7 +11,7 @@ class CheckoutController < ApplicationController
     {investment: investment, trxn_fees: trxn_fees, total_due: total_due}
   end
 
-  def price
+  def update_price
     property = Property.find params[:id]
     result = calculate_price params[:input_shares], property
 
@@ -19,6 +20,16 @@ class CheckoutController < ApplicationController
       trxn_fees: result[:trxn_fees],
       total_due: result[:total_due]
     }
+  end
+
+  def index
+    investments = Investment.where user_id: @current_user.id
+    account = Account.find_by user_id: @current_user.id, account_active: true
+
+    @investments = investments.where account_id: account.id
+  end
+
+  def show
   end
 
   def new
@@ -33,20 +44,20 @@ class CheckoutController < ApplicationController
 
   def create
     property = Property.find params[:id]
-
+    puts "id: #{params[:id]}, property: #{property.id}"
     if params[:input_shares].to_i > property.available_shares
       flash[:error] = 'There is not enough share units to acquire.'
-      redirect_to new_checkout_path(property.id) and return
+      redirect_to new_investment_path(property.id) and return
     end
 
-    result = calculate_price params[:buy_shares], property
-
+    result = calculate_price params[:input_shares], property
+    p "result: #{result}"
     investment = Investment.create(
       invest_amount: result[:investment],
       invest_share: params[:input_shares],
       trxn_fee: result[:trxn_fees],
       total_due: result[:total_due],
-      trxn_ref: (rand() * 100000000).round,
+      trxn_ref: (rand() * 100000000).round.to_s,
       property_id: params[:id],
       account_id: params[:account_id]
     )
