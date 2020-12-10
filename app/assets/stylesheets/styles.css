@@ -79,3 +79,101 @@ navigation-clean .navbar-nav > li > .dropdown-menu {
     background: #eee;
     color: inherit;
 }
+
+.wrapper {
+  background-color: #f1f7fc;
+}
+
+.flex-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login {
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 5px;
+  width: 35%;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+
+.login input {
+  padding: 10px;
+  background-color: #f1f7fc;
+  font-size: 1.1em;
+  border: none;
+  border-bottom: 1px solid #dfe7f1;
+  margin-bottom: 10px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login button {
+  background-color: #17a2b8;
+  border: none;
+  border-radius: 3px;
+  width: 100%;
+  color: #fff;
+  padding: 10px;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+.login .signup {
+  display: block;
+  text-align: center;
+  font-size: 0.9em;
+  margin-top: 5px;
+  color: grey;
+}
+
+.login .forgot {
+  display: block;
+  text-align: right;
+  font-size: 0.9em;
+  margin-bottom: 25px;
+  margin-top: -3px;
+  color: grey;
+}
+
+.login .logo {
+  text-align: center;
+  font-size: 80px;
+  color: rgb(23,162,184);
+  margin-bottom: 15px;
+}
+.login button:hover {
+  background-color: #138496;
+}
+
+.login button:focus {
+  outline: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+.notice {
+  padding: 15px;
+  background-color: #f8d7da;
+  color: #721c24;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.error {
+  padding: 5px;
+  background-color: #f8d7da;
+  color: #721c24;
+  font-weight: 300;
+  font-size: 0.8em;
+  display:block;
+}
+
+.field_with_errors input {
+  border-bottom: 1px solid #f8d7da;
+}
