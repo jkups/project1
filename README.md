@@ -16,7 +16,7 @@
   * Braintree (card and paypal processing)
   * Google Places API
 
-Check out the [repo](https://github.com/jkups/project1) here.
+
 ### List of Features
 ##### 1. User and Account setup
 You can setup a user profile on the platform. To make an investment though, you will be required to create an investment account. You can create unlimited number of investment accounts tied to a single user profile.
