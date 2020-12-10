@@ -1,6 +1,6 @@
 ## Brikalot: A Property Investment Platform
 
-Brikalot is a platform that enables investor to own units of a property by acquiring units they can afford. The platform was built with the following tools.
+Brikalot is a platform that enable investors to own units of a property by acquiring units they can afford. The platform was built with the following tools.
 
 * Frontend
   * HTML, CSS, JavaScript
