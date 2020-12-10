@@ -2,7 +2,7 @@
   <% if flash[:error] %>
     <div class="error">
       <div class="container">
-        <i class="fas fa-ban"></i> <%= flash[:error] %>. <span>Please try again.</span>
+        <i class="fas fa-ban"></i> <%= flash[:error] %>
       </div>
     </div>
   <% end %>
@@ -42,7 +42,7 @@
             </span>
           <% end %>
           <%= f.text_field :password, placeholder:'Password' %>
-          
+
           <%= f.button 'Sign Up' %>
           <%= link_to 'You already have a profile? Login here.', login_path, class: 'signup' %>
         <% end %>

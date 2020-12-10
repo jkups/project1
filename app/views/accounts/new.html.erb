@@ -1,3 +1,11 @@
+<% if flash[:error] %>
+	<div class="error">
+		<div class="container">
+			<i class="fas fa-ban"></i> <%= flash[:error] %>
+		</div>
+	</div>
+<% end %>
+
 <%= form_with model: @account, local: true do |f| %>
 
 	<div class="container py-5">

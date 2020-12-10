@@ -1,29 +1,6 @@
 class PayController < ApplicationController
   before_action :check_if_user_logged_in
 
-  # def pay_with_braintree ref, total, nonce
-  #   gateway = Braintree::Gateway.new(
-  #     :environment => :sandbox,
-  #     :merchant_id => ENV["BRAINTREE_MERCHANT_ID"],
-  #     :public_key => ENV["BRAINTREE_PUBLIC_KEY"],
-  #     :private_key => ENV["BRAINTREE_PRIVATE_KEY"],
-  #   )
-  #
-  #   result = gateway.transaction.sale(
-  #     :amount => total.to_s,
-  #     :payment_method_nonce => nonce,
-  #     :options => {
-  #       :submit_for_settlement => true
-  #     }
-  #   )
-  #
-  #   result
-  # end
-
-  def validate_trxn share, property_id
-    property = Property.find property_id
-    return property.available_shares >= share ? true : false
-  end
 
   def update_investment id, trxn_code, paymethod
     investment = Investment.find id
@@ -43,11 +20,10 @@ class PayController < ApplicationController
 
     if investment.trxn_valid?
       process_trxn = investment.pay_with_braintree params[:nonce]
+      trxn_code = process_trxn.transaction.id
 
       if process_trxn.success?
-        puts process_trxn.transaction.id
-        update_investment investment.id, process_trxn.transaction.id, params[:paymethod]
-
+        investment.update_trxn trxn_code, params[:paymethod]
         redirect_to investments_path and return
       else
         flash[:error] = "Your transaction didn't go through. Please try again."

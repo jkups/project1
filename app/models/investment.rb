@@ -24,18 +24,12 @@ class Investment < ApplicationRecord
   end
 
   def trxn_valid?
-    # property = Property.find self.property_id
     self.property.available_shares >= self.invest_share
-    # return property.available_shares >= share ? true : false
   end
-  #
-  # def update_investment id, trxn_code, paymethod
-  #   investment = Investment.find id
-  #   investment.update trxn_code: trxn_code, pay_method: paymethod, trxn_status: 'successful'
-  #
-  #   property = Property.find investment.property_id
-  #   property.available_shares -= investment.invest_share
-  #   property.save
-  # end
+
+  def update_trxn trxn_code, paymethod
+    self.update trxn_code: trxn_code, pay_method: paymethod, trxn_status: 'successful'
+    self.property.available_shares -= investment.invest_share
+  end
 
 end

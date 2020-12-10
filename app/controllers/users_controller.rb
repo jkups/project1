@@ -1,9 +1,6 @@
 class UsersController < ApplicationController
   before_action :check_if_user_logged_in, :except => [:new, :create]
 
-  # def index
-  # end
-
   def new
     @user = User.new
   end
@@ -21,11 +18,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # def show
-  #   redirect_to root_path unless @current_user.present?
-  #
-  # end
-
   def edit
     @user = User.find params[:id]
   end
@@ -39,9 +31,6 @@ class UsersController < ApplicationController
 
     user.update user_params
     redirect_to edit_user_path(user.id)
-  end
-
-  def destroy
   end
 
   private

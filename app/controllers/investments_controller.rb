@@ -1,19 +1,10 @@
 class InvestmentsController < ApplicationController
   before_action :check_if_user_logged_in
 
-  def calculate_price shares, property
-    p shares
-    share_price = property.value / property.total_shares
-    investment = shares.to_f * share_price
-    trxn_fees = 0.1 * investment
-    total_due = investment + trxn_fees
-
-    {investment: investment, trxn_fees: trxn_fees, total_due: total_due}
-  end
 
   def update_price
     property = Property.find params[:id]
-    result = calculate_price params[:input_shares], property
+    result = property.calculate_price params[:input_shares]
 
     render json: {
       investment: result[:investment],
@@ -43,14 +34,14 @@ class InvestmentsController < ApplicationController
 
   def create
     property = Property.find params[:id]
-    puts "id: #{params[:id]}, property: #{property.id}"
+
     if params[:input_shares].to_i > property.available_shares
       flash[:error] = 'There is not enough share units to acquire.'
       redirect_to new_investment_path(property.id) and return
     end
 
-    result = calculate_price params[:input_shares], property
-    p "result: #{result}"
+    result = property.calculate_price params[:input_shares]
+
     investment = Investment.create(
       invest_amount: result[:investment],
       invest_share: params[:input_shares],

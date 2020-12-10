@@ -1,5 +1,12 @@
-<div class="container mt-5">
+<% if flash[:error] %>
+	<div class="error">
+		<div class="container">
+			<i class="fas fa-ban"></i> <%= flash[:error] %>. <span>Please try again.</span>
+		</div>
+	</div>
+<% end %>
 
+<div class="container mt-5">
 	<div class="d-md-flex my-md-4">
 	<h4 class="text-info flex-fill">Checkout<br></h4>
 	<div class="text-left text-md-right bg-light shadow-sm my-4 my-md-0 p-3 mr-0 rounded active-account">
