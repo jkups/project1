@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
-  before_action :check_if_logged_in
-  
+  before_action :check_if_user_logged_in
+
   def switch
     @current_user.accounts.each do |account|
       account.account_active = false

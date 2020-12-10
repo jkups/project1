@@ -290,7 +290,7 @@
 	  // Load the PayPal JS SDK (see Load the PayPal JS SDK section)
 
 		return paypalCheckoutInstance.loadPayPalSDK({
-			currency: 'AUD',
+			currency: 'USD',
 			intent: 'capture'
 		})
 	}).then(function (paypalCheckoutInstance) {
@@ -304,7 +304,7 @@
 				return paypalCheckoutInstance.createPayment({
 					flow: 'checkout', // Required
 					amount: $('#totalDue').val(), // Required
-					currency: 'AUD', // Required, must match the currency passed in with loadPayPalSDK
+					currency: 'USD', // Required, must match the currency passed in with loadPayPalSDK
 					intent: 'capture', // Must match the intent passed in with loadPayPalSDK
 					displayName: 'Brikalot'
 				});

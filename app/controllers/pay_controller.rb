@@ -1,24 +1,24 @@
 class PayController < ApplicationController
-  before_action :check_if_logged_in
+  before_action :check_if_user_logged_in
 
-  def pay_with_braintree ref, total, nonce
-    gateway = Braintree::Gateway.new(
-      :environment => :sandbox,
-      :merchant_id => "qjd7x8wgzkgmfrz5",
-      :public_key => "7d5xgd244wr2sqzt",
-      :private_key => "87b5535ac5a37f2b06563ef3432df32d",
-    )
-
-    result = gateway.transaction.sale(
-      :amount => total.to_s,
-      :payment_method_nonce => nonce,
-      :options => {
-        :submit_for_settlement => true
-      }
-    )
-
-    result
-  end
+  # def pay_with_braintree ref, total, nonce
+  #   gateway = Braintree::Gateway.new(
+  #     :environment => :sandbox,
+  #     :merchant_id => ENV["BRAINTREE_MERCHANT_ID"],
+  #     :public_key => ENV["BRAINTREE_PUBLIC_KEY"],
+  #     :private_key => ENV["BRAINTREE_PRIVATE_KEY"],
+  #   )
+  #
+  #   result = gateway.transaction.sale(
+  #     :amount => total.to_s,
+  #     :payment_method_nonce => nonce,
+  #     :options => {
+  #       :submit_for_settlement => true
+  #     }
+  #   )
+  #
+  #   result
+  # end
 
   def validate_trxn share, property_id
     property = Property.find property_id
@@ -40,16 +40,15 @@ class PayController < ApplicationController
 
   def create
     investment = Investment.find params[:id]
-    valid_trxn = validate_trxn investment.invest_share, investment.property_id
 
-    if valid_trxn
-      process_trxn = pay_with_braintree investment.trxn_ref, investment.total_due, params[:nonce]
+    if investment.trxn_valid?
+      process_trxn = investment.pay_with_braintree params[:nonce]
 
       if process_trxn.success?
         puts process_trxn.transaction.id
         update_investment investment.id, process_trxn.transaction.id, params[:paymethod]
 
-        redirect_to root_path and return
+        redirect_to investments_path and return
       else
         puts "TRANSACTION FAILED"
         redirect_to root_path

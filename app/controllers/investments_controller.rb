@@ -1,5 +1,5 @@
 class InvestmentsController < ApplicationController
-  before_action :check_if_logged_in
+  before_action :check_if_user_logged_in
 
   def calculate_price shares, property
     p shares
@@ -24,7 +24,7 @@ class InvestmentsController < ApplicationController
 
   def index
     @account = Account.find_by user_id: @current_user.id, account_active: true
-    @investments = Investment.where account_id: @account.id
+    @investments = Investment.where account_id: @account.id, trxn_status: "successful"
     @investments = @investments.each { |inv| inv.property_name = inv.property.name }
   end
 

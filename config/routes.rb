@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'admin/index'
   root to: 'pages#home'
   #session routes
   get '/login' => 'session#new'
@@ -11,6 +10,7 @@ Rails.application.routes.draw do
   resources :accounts
   resources :investments
   resources :properties
+  resources :admin
 
   #checkout and payment routes
   get '/investments/update/price' => 'investments#update_price', as:'update_price'
