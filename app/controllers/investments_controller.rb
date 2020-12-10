@@ -23,10 +23,9 @@ class InvestmentsController < ApplicationController
   end
 
   def index
-    investments = Investment.where user_id: @current_user.id
-    account = Account.find_by user_id: @current_user.id, account_active: true
-
-    @investments = investments.where account_id: account.id
+    @account = Account.find_by user_id: @current_user.id, account_active: true
+    @investments = Investment.where account_id: @account.id
+    @investments = @investments.each { |inv| inv.property_name = inv.property.name }
   end
 
   def show

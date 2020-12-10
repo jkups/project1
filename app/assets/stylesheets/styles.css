@@ -51,6 +51,11 @@ a:hover {
 #paymethod .custom-control-label::after {
     top: 0.75em !important;
 }
+
+table .td-text-right {
+    text-align: right;
+}
+
 body {
   margin: 0;
   font-family: 'Signika Negative', sans-serif;

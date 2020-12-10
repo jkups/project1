@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'admin/index'
   root to: 'pages#home'
   #session routes
   get '/login' => 'session#new'
