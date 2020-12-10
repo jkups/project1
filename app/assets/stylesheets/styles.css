@@ -56,6 +56,30 @@ table .td-text-right {
     text-align: right;
 }
 
+navigation-clean .navbar-nav > li > .dropdown-menu {
+    margin-top: -5px;
+    box-shadow: none;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.navigation-clean.navbar .navbar-nav .nav-link {
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.navbar-expand-md .navbar-nav .dropdown-menu {
+    margin-top: 8px !important;
+    padding: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.navigation-clean .dropdown-menu .dropdown-item:focus, .navigation-clean .dropdown-menu .dropdown-item:hover {
+    background: #eee;
+    color: inherit;
+}
+
 body {
   margin: 0;
   font-family: 'Signika Negative', sans-serif;

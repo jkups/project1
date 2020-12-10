@@ -50,8 +50,8 @@ class PayController < ApplicationController
 
         redirect_to investments_path and return
       else
-        puts "TRANSACTION FAILED"
-        redirect_to root_path
+        flash[:error] = "Your transaction didn't go through. Please try again."
+        redirect_to properties_path
       end
     else
       flash[:error] = "The number of units you want is not available."

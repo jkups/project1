@@ -1,0 +1,15 @@
+<div class="d-md-flex my-md-4">
+  <h4 class="text-info flex-fill"><%= @account.account_type %><br></h4>
+  <div class="text-left text-md-right bg-light shadow-sm my-4 my-md-0 p-3 mr-0 rounded active-account">
+    <h5 class="mb-0"><%= @account.account_name %></h5>
+    <div>
+      <span class="text-secondary" style="font-size: 14px;"><em>Account No: <%= @account.account_number %></em><br></span>
+      <div>
+        <%= link_to 'NEW ACCOUNT', new_account_path, class:'text-white badge badge-warning ml-md-1 p-2' %>
+        <% if @current_user.accounts.count > 1 %>
+          <%= link_to 'SWITCH ACCOUNT', '#', class: "text-white badge badge-warning ml-1 p-2", 'data-toggle': "modal", 'data-target': "#switchAccount" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

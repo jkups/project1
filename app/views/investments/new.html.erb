@@ -6,10 +6,6 @@
 		<h5 class="mb-0"><%= @account.account_name %></h5>
 		<div>
 			<span class="text-secondary" style="font-size: 14px;"><em>Account No: <%= @account.account_number %></em><br></span>
-			<div>
-
-
-			</div>
 		</div>
 	</div>
 </div>
@@ -22,7 +18,7 @@
 			<div class="col mb-4">
 				<div class="border rounded shadow-sm h-100">
 					<div class="position-relative">
-						<%= image_tag @property.prop_image, width:"100%" %>
+						<%= image_tag "#{@property.prop_image}.jpg", width:"100%" %>
 						<div class="position-absolute bg-white py-2 px-4" style="left:0;right:0;bottom:0;opacity:0.9;">
 							<div class="d-flex align-items-baseline">
 								<h4 class="flex-fill mt-3"><%= @property.name %></h4>
@@ -39,10 +35,8 @@
 						<div class="d-flex align-items-baseline">
 							<i class="fas fa-angle-double-right text-info"></i>
 							<%= f.label "Enter number of units to buy", class:"d-block" %>
-							<!-- <label class="d-block">&nbsp;Enter number of units to buy</label> -->
 						</div>
 						<%= f.number_field "input_shares", class:"border rounded form-control-lg w-100", value: @property.min_shares %>
-						<!-- <input id="inputShares" name="inputshares" class="border rounded form-control-lg w-100" value="1" type="number"> -->
 						<p class="mt-2 mb-0 text-black-50"><i><%= @property.available_shares %> units available</i></p>
 					</div>
 				</div>
@@ -74,10 +68,6 @@
 								<li class="flex-fill">Transaction Fees</li>
 								<li id="fees">$ 65.00</li>
 							</ul>
-							<!-- <ul class="list-unstyled text-secondary d-flex mb-1">
-								<li class="flex-fill">Transaction Charge</li>
-								<li id="trxn">$ NaN</li>
-							</ul> -->
 							<ul class="list-unstyled d-flex mt-1 py-2 font-weight-bold border-top border-bottom" style="font-size: 14pt;">
 								<li class="flex-fill">Total Due</li>
 								<li id="total">$ 715.00</li>

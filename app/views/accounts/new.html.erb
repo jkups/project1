@@ -64,53 +64,6 @@
 				</div>
 			</div>
 
-			<!-- <%= f.fields_for :address do |f| %>
-				<div class="mt-4">
-					<h5>Contact Address</h5>
-					<hr class="mb-4 border-info">
-					<div id="locationField" class="form-row">
-						<div class="form-group col-12 mb-0">
-							<%= text_field_tag "autocomplete", nil, placeholder:"Enter your address...", class:"form-control-lg form-control rounded-0 pac-target-input", onfocus:"geolocate()", autocomplete:"off" %>
-						</div>
-					</div>
-					<div class="text-right bg-light custom-control custom-switch pr-4 py-2 border-bottom">
-						<%= check_box_tag 'toggleAddress', 1, false, class:"custom-control-input" %>
-						<%= label_tag "toggleAddress", "Manually Fill Address", class:"custom-control-label"%>
-					</div>
-					<div class="p-4 bg-light">
-						<%= f.label :street_name, 'Street Address:', class:"d-block text-black-50" %>
-						<div class="form-row">
-							<div class="form-group col-lg-2 col-3">
-								<%= f.text_field :street_number, id:'street_number', class:"form-control-lg form-control pl-2", readonly:'true' %>
-							</div>
-							<div class="form-group col-lg-10 col-9">
-								<%= f.text_field :street_name, id:'route', class:"form-control-lg form-control pl-2", readonly:'true' %>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<%= f.label :suburb, 'Suburb / City:', class:"d-block text-black-50" %>
-								<%= f.text_field :suburb, id:'locality', class:"form-control-lg form-control pl-2", readonly:'true' %>
-							</div>
-							<div class="form-group col-md-6">
-								<%= f.label :zipcode, 'Zip Code:', class:"d-block text-black-50"%>
-								<%= f.text_field :zipcode, id:'postal_code', class:"form-control-lg form-control pl-2", readonly:'true' %>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<%= f.label :state, 'State:', class:"d-block text-black-50" %>
-								<%= f.text_field :state, id:'administrative_area_level_1', class:"form-control-lg form-control pl-2", readonly:'true' %>
-							</div>
-							<div class="form-group col-md-6">
-								<%= f.label :country, 'Country:', class:"d-block text-black-50" %>
-								<%= f.text_field :country, id:'country', class:"form-control-lg form-control pl-2", readonly:'true' %>
-							</div>
-						</div>
-					</div>
-				</div>
-			<% end %> -->
-
 			<div class="text-right my-4">
 				<%= f.button 'CREATE ACCOUNT',class:'btn btn-info ml-md-2 button-block submit' %>
 			</div>

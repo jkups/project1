@@ -1,37 +1,14 @@
-<!-- <h1>User#edit</h1>
-<p>Find me in app/views/user/edit.html.erb</p>
-<%= form_with model:@user, local: true do |f| %>
-  <%= f.label :first_name %>
-  <%= f.text_field :first_name %>
-  <%= f.label :last_name %>
-  <%= f.text_field :last_name %>
-
-  <%= f.submit %>
-
-<% end %> -->
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC92A27W3HNJ_kxea2POCviAfhVHsIknso&libraries=places&callback=initAutocomplete" defer></script>
 
 <div class="container py-5">
   <h4 class="text-info  mt-md-4 mb-5">User Profile<br></h4>
   <div class="row">
-    <div class="col-lg-2">
-    	<ul id="sidebar" class="list-unstyled d-flex d-lg-block">
-    		<li class="text-center text-lg-left flex-fill">
-    			<a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs active" href="<%= edit_user_path(@user.id) %>">Personal Details<br></a>
-    		</li>
-    		<li class="text-center text-lg-left flex-fill">
-    			<a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="/beneficiary">Beneficiary<br></a>
-    		</li>
-    		<li class="text-center text-lg-left flex-fill">
-    			<a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="/settings">Settings<br></a>
-    		</li>
-    	</ul>
-    </div>
-		<div class="col">
+    <%= render partial: "sidebar" %>
 
+		<div class="col">
       <%= form_with model: @user, local: true do |f| %>
-				<input id="intlMobile" type="hidden" name="intlMobile">
-				<input id="dialCode" type="hidden" name="dialCode">
+				<!-- <input id="intlMobile" type="hidden" name="intlMobile">
+				<input id="dialCode" type="hidden" name="dialCode"> -->
 
 				<div class="border rounded p-4">
 					<div>
@@ -96,12 +73,12 @@
   						<hr class="mb-4 border-info">
   						<div id="locationField" class="form-row">
   							<div class="form-group col-12 mb-0">
-  								<input id="autocomplete" onfocus="geolocate()" type="text" class="form-control-lg form-control rounded-0 pac-target-input" name="address" placeholder="Enter your address..." autocomplete="off">
+                  <%= text_field_tag 'address', nil, class: "form-control-lg form-control rounded-0 pac-target-input", id: "autocomplete", onfocus: "geolocate()", autocomplete: "off", placeholder: "Enter your address..." %>
   							</div>
   						</div>
   						<div class="text-right bg-light custom-control custom-switch pr-4 py-2 border-bottom">
-  							<input type="checkbox" id="manualAddress" onclick="autoManual(this)" class="custom-control-input" name="manualAddress">
-  							<label class="custom-control-label" for="manualAddress">Manually Fill Address</label>
+                <%= check_box_tag 'toggleAddress', 'on', false, class: "custom-control-input" %>
+                <%= label_tag nil, 'Manually Fill Address', class: "custom-control-label", for: "toggleAddress" %>
   						</div>
   						<div class="p-4 bg-light">
                 <%= f.label :street_name, 'Street Address:', class:"d-block text-black-50" %>

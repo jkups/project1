@@ -1,36 +1,11 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC92A27W3HNJ_kxea2POCviAfhVHsIknso&libraries=places&callback=initAutocomplete" defer></script>
+
 <div class="container py-5">
-  <div class="d-md-flex my-md-4">
-  	<h4 class="text-info flex-fill"><%= @account.account_type %><br></h4>
-  	<div class="text-left text-md-right bg-light shadow-sm my-4 my-md-0 p-3 mr-0 rounded active-account">
-  		<h5 class="mb-0"><%= @account.account_name %></h5>
-  		<div>
-  			<span class="text-secondary" style="font-size: 14px;"><em>Account No: <%= @account.account_number %></em><br></span>
-  			<div>
-          <%= link_to 'NEW ACCOUNT', new_account_path, class:'text-white badge badge-warning ml-md-1 p-2' %>
-          <% if @current_user.accounts.count > 1 %>
-            <%= link_to 'SWITCH ACCOUNT', '#', class: "text-white badge badge-warning ml-1 p-2", 'data-toggle': "modal", 'data-target': "#switchAccount" %>
-          <% end %>
-  			</div>
-  		</div>
-  	</div>
-  </div>
+  <%= render partial: "badge" %>
+
   <div class="row">
-    <div class="col-lg-2">
-    	<ul id="sidebar" class="list-unstyled d-flex d-lg-block">
-    		<li class="text-center text-lg-left flex-fill">
-    			<a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs active" href="<%= edit_account_path %>">Account<br></a>
-    		</li>
-    		<li class="text-center text-lg-left flex-fill">
-    			<a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="/beneficiary">Banking<br></a>
-    		</li>
-    		<li class="text-center text-lg-left flex-fill">
-    			<a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="<%= investments_path %>">Investment<br></a>
-    		</li>
-    		<li class="text-center text-lg-left flex-fill">
-    			<a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="/settings">Dividend<br></a>
-    		</li>
-    	</ul>
-    </div>
+    <%= render partial: "sidebar" %>
+
 		<div class="col">
       <%= form_with model: @account, local: true do |f| %>
 				<div class="border rounded p-4">

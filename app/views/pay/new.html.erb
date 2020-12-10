@@ -3,9 +3,9 @@
   <div class="d-md-flex my-md-4">
   	<h4 class="text-info flex-fill">Make Payment<br></h4>
   	<div class="text-left text-md-right bg-light shadow-sm my-4 my-md-0 p-3 mr-0 rounded active-account">
-  		<h5 class="mb-0">Mine Account</h5>
+  		<h5 class="mb-0"><%= @investment.account.account_name %></h5>
   		<div>
-  			<span class="text-secondary" style="font-size: 14px;"><em>Account No: 697510720</em><br></span>
+  			<span class="text-secondary" style="font-size: 14px;"><em>Account No: <%= @investment.account.account_number %></em><br></span>
   			<div>
 
 
@@ -15,12 +15,12 @@
   </div>
 
   <%= form_with url: pay_path, local:true do |f| %>
-	<!-- <form action="/pay" method="POST" class="account-form card-payment" onsubmit="return processing(this);"> -->
-    <input id="totalDue" type="hidden" name="totalDue" value="<%= @investment.total_due %>">
-    <input id="nonce" type="hidden" name="nonce" value="">
+    <%= hidden_field_tag 'totalDue', @investment.total_due %>
+    <%= hidden_field_tag 'nonce'%>
+
 		<div>
 			<ul class="list-unstyled border rounded shadow-sm d-flex">
-				<li class="bg-light flex-fill p-3 pay-image" style="background-image:url('<%= @investment.property.prop_image %>.jpg')"></li>
+				<li class="bg-light flex-fill p-3 pay-image" style="background-image:url('<%= "#{@investment.property.prop_image}.jpg" %>')"></li>
 				<li class="flex-fill position-relative pb-md-5" style="max-width:750px">
 					<div class="p-4 p-md-5">
 						<diV class="d-md-flex align-items-end">
@@ -214,12 +214,12 @@
 		hostedFields.on('cardTypeChange', function (event) {
 			if (event.cards.length === 1) {
 				if(event.cards[0].type == 'master-card'){
-					$('#card-logo').prop('src', '/images/mastercard-logo.png');
+					$('#card-logo').prop('src', '');
 					$('#card-logo').parent().css('right', '10px');
 					$('#card-logo').width(50);
 
 				} else if(event.cards[0].type == 'visa'){
-					$('#card-logo').prop('src', '/images/visa-logo.png');
+					$('#card-logo').prop('src', '');
 					$('#card-logo').parent().css('right', '18px');
 					$('#card-logo').width(40);
 

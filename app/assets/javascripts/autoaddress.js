@@ -76,7 +76,6 @@ function geolocate() {
 $(document).ready(function(){
 	// Toggle manual address entry
 	$('#toggleAddress').click(function(){
-		console.log("here");
 		if($(this).prop('checked')){
 			$('#street_number, #route, #locality, #postal_code, #administrative_area_level_1, #country').attr('readonly', false);
 		} else {

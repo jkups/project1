@@ -2,8 +2,7 @@
 	<div class="carousel slide" data-ride="carousel" data-interval="false" data-pause="false" id="carousel">
 		<div class="carousel-inner" role="listbox">
 			<div class="carousel-item active">
-        <%= image_tag @property.prop_image + '-lg', class:"w-100 d-block" %>
-				<!-- <img class="w-100 d-block" src="/images/prop-img-1-lg.jpg" alt="Slide Image"> -->
+        <%= image_tag "#{@property.prop_image}-lg.jpg", class:"w-100 d-block" %>
 			</div>
 		</div>
 		<div>
@@ -22,7 +21,6 @@
 					<div>
 						<h3 class="text-info mb-4">$ <%= @property.value / @property.total_shares %>/share</h3>
 						<h4 class="mb-0"><%= @property.name %></h4>
-
 					</div>
 					<p>
 						<%= @property.address %>
@@ -35,8 +33,6 @@
 					</ul>
 					<div class="my-5">
 						<%= link_to 'Buy Shares', new_investment_path(id: @property.id), class:"btn btn-info btn-lg px-5 button-block" %>
-						<!-- <a class="btn btn-info btn-lg px-5 button-block" href="/property/5f6734d1e7179a6ea51fa4f2/checkout">
-							Buy Shares</a> -->
 					</div>
 				</div>
 			</li>
@@ -93,10 +89,10 @@
 			<h6><strong>Property Features:</strong><br></h6>
 			<div>
 				<ul class="list-unstyled d-flex align-items-lg-start text-black-50 font-weight-bold">
-					<li class="mr-3">3 <i class="fas fa-bed"></i></li>
-					<li class="mr-3">2 <i class="fas fa-bath"></i></li>
-					<li class="mr-3">2 <i class="fas fa-car"></i></li>
-					<li class="mr-3">1,600 sqft</li>
+					<li class="mr-3"><%= @property.bed %> <i class="fas fa-bed"></i></li>
+					<li class="mr-3"><%= @property.bath %> <i class="fas fa-bath"></i></li>
+					<li class="mr-3"><%= @property.car_park %> <i class="fas fa-car"></i></li>
+					<li class="mr-3"><%= @property.plot_size %> sqft</li>
 				</ul>
 			</div>
 		</div>
