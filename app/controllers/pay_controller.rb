@@ -20,9 +20,10 @@ class PayController < ApplicationController
 
     if investment.trxn_valid?
       process_trxn = investment.pay_with_braintree params[:nonce]
-      trxn_code = process_trxn.transaction.id
 
       if process_trxn.success?
+        trxn_code = process_trxn.transaction.id
+        
         investment.update_trxn trxn_code, params[:paymethod]
         redirect_to investments_path and return
       else

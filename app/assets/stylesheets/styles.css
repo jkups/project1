@@ -177,3 +177,10 @@ input:focus {
 .field_with_errors input {
   border-bottom: 1px solid #f8d7da;
 }
+
+.footer-clean {
+  padding: 50px 0;
+  background-color: #fff;
+  color: #4b4c4d;
+  margin-top: 100px;
+}

@@ -1,7 +1,7 @@
 <% if flash[:error] %>
-	<div class="error">
+	<div class="notice">
 		<div class="container">
-			<i class="fas fa-ban"></i> <%= flash[:error] %>. <span>Please try again.</span>
+			<i class="fas fa-ban"></i> <%= flash[:error] %>
 		</div>
 	</div>
 <% end %>
@@ -57,7 +57,7 @@
 								<em><%= @account.account_name %></em>
 							</strong>
 							<em> investment account will secure</em>
-							<span id="review_shares">1</span> unit share in <%= @property.name %> at
+							<span id="review_shares"><%= @property.min_shares %></span> unit share in <%= @property.name %> at
 							$<%= @property.value / @property.total_shares %>/share.
 						</p>
 
