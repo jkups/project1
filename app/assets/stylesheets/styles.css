@@ -80,7 +80,7 @@ navigation-clean .navbar-nav > li > .dropdown-menu {
     color: inherit;
 }
 
-body {
+/* body {
   margin: 0;
   font-family: 'Signika Negative', sans-serif;
 }
@@ -248,7 +248,7 @@ input:focus {
   color: #17a2b8;
 }
 
-/* .account-form {
+.account-form {
   border: 1px solid lightgrey;
   border-radius: 5px;
   padding: 20px;
