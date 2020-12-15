@@ -5,12 +5,19 @@ Rails.application.routes.draw do
   post '/login' => 'session#create'
   delete '/login' => 'session#destroy'
 
+  #admin routes
+  get '/admin/properties' => 'admin#property_index'
+  get '/admin/properties/new' => 'admin#property_new', as: 'admin_new_property'
+  post '/admin/properties' => 'admin#property_create'
+  get '/admin/properties/:id/edit' => 'admin#property_edit', as: 'admin_edit_property'
+  post '/admin/properties/:id' => 'admin#property_update'
+  delete '/admin/properties/:id' => 'admin#property_destroy'
+
   #user routes - index, create, show, update, destroy
   resources :users
   resources :accounts
   resources :investments
   resources :properties
-  resources :admin
 
   #checkout and payment routes
   get '/investments/update/price' => 'investments#update_price', as:'update_price'

@@ -1,6 +1,12 @@
 class SessionController < ApplicationController
+
   def new
-    redirect_to edit_user_path(@current_user.id) if @current_user.present?
+    if @current_user.present?
+      if @current_user.user_type == 'user'
+        redirect_to edit_user_path(@current_user.id)
+      else
+        redirect_to admin_properties_path(@current_user.id)
+    end
   end
 
   def create

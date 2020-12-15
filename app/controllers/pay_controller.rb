@@ -1,16 +1,6 @@
 class PayController < ApplicationController
   before_action :check_if_user_logged_in
 
-
-  def update_investment id, trxn_code, paymethod
-    investment = Investment.find id
-    investment.update trxn_code: trxn_code, pay_method: paymethod, trxn_status: 'successful'
-
-    property = Property.find investment.property_id
-    property.available_shares -= investment.invest_share
-    property.save
-  end
-
   def new
     @investment = Investment.find params[:id]
   end
@@ -23,7 +13,7 @@ class PayController < ApplicationController
 
       if process_trxn.success?
         trxn_code = process_trxn.transaction.id
-        
+
         investment.update_trxn trxn_code, params[:paymethod]
         redirect_to investments_path and return
       else
