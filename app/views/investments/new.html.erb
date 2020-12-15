@@ -68,16 +68,20 @@
 								<div class="spinner-border" style="width: 3rem; height: 3rem;" role="status"></div>
 							</div>
 							<ul class="list-unstyled text-secondary d-flex mb-1">
+								<%
+								investment = (@property.value / @property.total_shares) * @property.min_shares
+								fees = investment * 0.1
+								%>
 								<li class="flex-fill">Investment</li>
-								<li id="inv">$ <%= (@property.value / @property.total_shares) * @property.min_shares %></li>
+								<li id="inv">$ <%= investment %></li>
 							</ul>
 							<ul class="list-unstyled text-secondary d-flex mb-1">
 								<li class="flex-fill">Transaction Fees</li>
-								<li id="fees">$ 65.00</li>
+								<li id="fees">$ <%= fees %></li>
 							</ul>
 							<ul class="list-unstyled d-flex mt-1 py-2 font-weight-bold border-top border-bottom" style="font-size: 14pt;">
 								<li class="flex-fill">Total Due</li>
-								<li id="total">$ 715.00</li>
+								<li id="total">$ <%= investment + fees %></li>
 							</ul>
 						</div>
 					</div>
