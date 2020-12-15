@@ -16,7 +16,7 @@
 
 		<div>
 			<ul class="list-unstyled border rounded shadow-sm d-flex">
-				<li class="bg-light flex-fill p-3 pay-image" style="background-image:url('<%= "#{@investment.property.prop_image}.jpg" %>')"></li>
+				<li class="bg-light flex-fill p-3 pay-image" style="background-image:url('<%= cloudinary_url(@investment.property.prop_images[0]) %>')"></li>
 				<li class="flex-fill position-relative pb-md-5" style="max-width:750px">
 					<div class="p-4 p-md-5">
 						<diV class="d-md-flex align-items-end">

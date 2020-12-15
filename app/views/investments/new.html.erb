@@ -25,7 +25,7 @@
 			<div class="col mb-4">
 				<div class="border rounded shadow-sm h-100">
 					<div class="position-relative">
-						<%= image_tag "#{@property.prop_image}.jpg", width:"100%" %>
+						<%= cl_image_tag @property.prop_images[0], width:"100%" %>
 						<div class="position-absolute bg-white py-2 px-4" style="left:0;right:0;bottom:0;opacity:0.9;">
 							<div class="d-flex align-items-baseline">
 								<h4 class="flex-fill mt-3"><%= @property.name %></h4>
