@@ -6,6 +6,7 @@ class SessionController < ApplicationController
         redirect_to edit_user_path(@current_user.id)
       else
         redirect_to admin_properties_path(@current_user.id)
+      end
     end
   end
 
@@ -19,7 +20,6 @@ class SessionController < ApplicationController
     else
       flash[:error] = 'Invalid Email or Password.'
       redirect_to login_path
-
     end
   end
 
