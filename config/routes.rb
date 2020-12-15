@@ -7,10 +7,12 @@ Rails.application.routes.draw do
 
   #admin routes
   get '/admin/properties' => 'admin#property_index'
-  get '/admin/properties/new' => 'admin#property_new', as: 'admin_new_property'
   post '/admin/properties' => 'admin#property_create'
+
+  get '/admin/properties/new' => 'admin#property_new', as: 'admin_new_property'
+
   get '/admin/properties/:id/edit' => 'admin#property_edit', as: 'admin_edit_property'
-  post '/admin/properties/:id' => 'admin#property_update'
+  patch '/admin/properties/:id' => 'admin#property_update', as:'admin_property'
   delete '/admin/properties/:id' => 'admin#property_destroy'
 
   #user routes - index, create, show, update, destroy

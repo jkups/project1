@@ -8,10 +8,10 @@
 	</div>
 <% end %>
 
-<%= form_with model: @property, url: admin_properties_path,  multipart: true, local: true do |f| %>
+<%= form_with model: @property, url: admin_property_path, multipart: true, local: true do |f| %>
 
 	<div class="container py-5">
-		<h4 class="text-info flex-fill mt-md-4 mb-5">New Property<br></h4>
+		<h4 class="text-info flex-fill mt-md-4 mb-5">Edit Property<br></h4>
 		<div class="border rounded p-4">
 			<div>
 				<h5>Property Details</h5>
@@ -97,7 +97,7 @@
       </div>
 
 			<div class="text-right my-4">
-				<%= f.button 'CREATE PROPERTY',class:'btn btn-info ml-md-2 button-block submit' %>
+				<%= f.button 'UPDATE PROPERTY',class:'btn btn-info ml-md-2 button-block submit' %>
 			</div>
 		</div>
 	</div>

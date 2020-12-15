@@ -48,6 +48,34 @@
 	</div>
 </div>
 
+<!-- Modal to delete property -->
+<%= form_with url: admin_properties_path, method: 'delete', local: true do |f| %>
+	<div class="modal fade" role="dialog" tabindex="-1" id="delete_property">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Delete Property:</h5>
+          <%= button_tag 'button', class:"close", "data-dismiss": "modal", "aria-label": "Close" do %>
+						<span aria-hidden="true">×</span>
+					<% end %>
+				</div>
+				<div class="modal-body">
+					<h6 class="text-danger mb-0">
+						Type&nbsp;<strong
+							><span style="text-decoration: underline;">DELETE</span>&nbsp;</strong
+						>to delete this property.&nbsp;<br />
+					</h6>
+					<p>Note that this action cannot be reversed.</p>
+          <%= text_field_tag 'delete', nil, class:"form-control-lg form-control" %>
+				</div>
+				<div class="modal-footer">
+          <%= f.button 'DELETE PROPERTY', class:"btn btn-danger submit" %>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net/1.10.21/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.bootstrap4.min.js"></script>
@@ -70,9 +98,11 @@
 							data;
 				  	}
 				},
-				{ data: 'prop_image',
+				{ data: 'prop_images',
           render: function(data, type, row){
-            return '<img src="' + data + '" width="100px">'
+            image_tag = '<%= cl_image_tag('swap', width:'100px') %>'
+            image_tag = image_tag.split('swap')
+            return image_tag[0] + data[0] + image_tag[1]
           }
         },
 				{ data: 'prop_id' },
@@ -101,7 +131,7 @@
               '<div class="dropdown-menu dropdown-menu-right">' +
                 '<a class="dropdown-item" href="/admin/properties/'+ row.id + '/edit">Edit</a>'+
                 '<div class="dropdown-divider"></div>'+
-                '<a class="dropdown-item" href="/admin/properties/'+ row.id + '">Delete</a>'+
+                '<button class="dropdown-item" onclick="showDelete(' + row.id + ')">Delete</button>'+
               '</div>'+
             '</div>'
           }
@@ -138,4 +168,12 @@
 
 		return formatter.format(val);
 	}
+
+  function showDelete(id){
+    let action = $('form').attr('action');
+    action = action + '/' + id;
+    $('form').attr('action', action);
+    $('#delete_property').modal('show');
+
+  }
 </script>

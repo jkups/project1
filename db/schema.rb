@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_10_040814) do
+ActiveRecord::Schema.define(version: 2020_12_15_144750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,13 +101,13 @@ ActiveRecord::Schema.define(version: 2020_12_10_040814) do
     t.integer "min_shares"
     t.text "description"
     t.string "prop_type"
-    t.string "prop_image"
     t.integer "bed"
     t.integer "bath"
     t.integer "plot_size"
     t.integer "car_park"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "prop_images", default: [], array: true
   end
 
   create_table "users", force: :cascade do |t|
