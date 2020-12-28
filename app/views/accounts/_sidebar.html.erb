@@ -1,16 +1,16 @@
 <div class="col-lg-2">
   <ul id="sidebar" class="list-unstyled d-flex d-lg-block">
     <li class="text-center text-lg-left flex-fill">
-      <a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs active" href="<%= edit_account_path(@account.id) %>">Account<br></a>
+      <a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs <% if request.url.include? 'account' %> active <% end %>" href="<%= edit_account_path(@account.id) %>">Account<br></a>
     </li>
-    <li class="text-center text-lg-left flex-fill">
+    <!-- <li class="text-center text-lg-left flex-fill">
       <a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="#">Banking<br></a>
-    </li>
+    </li> -->
     <li class="text-center text-lg-left flex-fill">
-      <a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="<%= investments_path %>">Investment<br></a>
+      <a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs <% if request.url.include? 'investments' %> active <% end %>" href="<%= investments_path %>">Investment<br></a>
     </li>
-    <li class="text-center text-lg-left flex-fill">
+    <!-- <li class="text-center text-lg-left flex-fill">
       <a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="#">Dividend<br></a>
-    </li>
+    </li> -->
   </ul>
 </div>

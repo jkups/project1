@@ -23,7 +23,7 @@
 							<h5 class="text-info flex-fill mb-5 mb-md-0">Choose a payment method</h5>
 							<div class="text-md-right">
 								<span class="badge badge-pill badge-warning text-white">total due</span>
-								<h4 class="text-info mb-0"><strong>$ <%= @investment.total_due %></strong></h4>
+								<h4 class="text-info mb-0"><strong><%= number_to_currency(@investment.total_due, unit: '$ ') %></strong></h4>
 							</div>
 						</diV>
 						<div id="paymethod" class="text-black-50 mt-4" style="font-size:1.1em">

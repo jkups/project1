@@ -1,0 +1,95 @@
+<% if flash[:error] %>
+	<div class="notice">
+		<div class="container">
+			<i class="fas fa-ban"></i> <%= flash[:error] %>
+		</div>
+	</div>
+<% end %>
+
+<div class="container py-5">
+
+  <div class="row">
+    <%= render partial:'admin_properties/adminnav' %>
+
+		<div class="col">
+			<div class="border rounded p-4">
+        <% if @accounts.nil? %>
+          <div>No invesment accounts has been created yet.</div>
+        <% else %>
+          <div>
+            <div class="table-responsive">
+    					<table id="invTable" class="table table-hover table-bordered" style="width:100%">
+    						<thead class="thead-light">
+    							<tr>
+    								<th></th>
+    								<th>Date</th>
+                    <th>Account Name</th>
+                    <th>Account Type</th>
+                    <th>Account Number</th>
+    								<th>Property</th>
+    								<th>Investment</th>
+    								<th>Fees Paid</th>
+    							</tr>
+    						</thead>
+    					</table>
+    				</div>
+          </div>
+        <% end %>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net/1.10.21/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+<% if @accounts.any? %>
+  <script type="text/javascript">
+  	const data = <%== @accounts.to_json %>;
+
+  	$(document).ready(function () {
+  		const table = $('#invTable').DataTable({
+  			data: data,
+  			columns: [
+  				{ data: null },
+  				{ data: 'created_at',
+  			  	render: function(data, type, row){
+    					let dateSplit = data.split('-');
+    					let daySplit = dateSplit[2].split('T');
+    					return type === "display" || type === "filter" ?
+    						daySplit[0] + '/' + dateSplit[1] + '/' + dateSplit[0] :
+    						data;
+  			  	}
+  				},
+          { data: 'account_name' },
+          { data: 'account_type' },
+          { data: 'account_number' },
+          { data: 'properties' },
+          { data: 'invest_amount', render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' ) },
+          { data: 'trxn_fee', render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' ) }
+  			],
+
+  			"columnDefs": [ {
+  				"searchable": false,
+  				"orderable": false,
+  				"targets": 0
+  				},
+  				{className: "td-text-right", targets: 6},
+  				{ width: "130px", targets: 2}
+  			],
+
+  			"order": [[ 1, 'dsc' ]]
+  		});
+
+  		table.on( 'order.dt search.dt', function () {
+  			table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+  				cell.innerHTML = i+1;
+  			});
+  		})
+  		.draw()
+  		.columns.adjust()
+  		// .responsive.recalc();
+  	});
+  </script>
+<% end %>

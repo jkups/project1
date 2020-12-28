@@ -1,63 +1,46 @@
-class AdminController < ApplicationController
+class AdminPropertiesController < ApplicationController
   before_action :check_if_admin_logged_in
 
-  def property_index
+  def index
     @properties = Property.all
   end
 
-  def property_new
+  def new
     @property = Property.new
   end
 
-  def property_edit
+  def edit
     @property = Property.find params[:id]
   end
 
-  def property_create
+  def create
     property = Property.new property_params
     property.prop_id = 'PID' + (rand() * 1000).round.to_s
     property.available_shares = params[:property][:total_shares]
 
-    if params[:property][:prop_images].present?
-      params[:property][:prop_images].each do |image|
-        req = Cloudinary::Uploader.upload(image)
-        property.prop_images << req["public_id"]
-      end
-    end
+    property.upload_images params[:property][:prop_images] if params[:property][:prop_images].present?
+
     property.save
     redirect_to admin_properties_path
   end
 
-  def property_update
+  def update
     property = Property.find params[:id]
     property.update property_params
 
     if params[:property][:prop_images].present?
-      if property.prop_images.any?
-        property.prop_images.each do |image|
-          Cloudinary::Uploader.destroy(image, { invalidate: true })
-        end
-        property.prop_images = []
-      end
-
-      params[:property][:prop_images].each do |image|
-        req = Cloudinary::Uploader.upload(image)
-        property.prop_images << req["public_id"]
-      end
+      property.destroy_images if property.prop_images.any?
+      property.upload_images params[:property][:prop_images]
     end
+
     property.save
     redirect_to admin_properties_path
   end
 
-  def property_destroy
+  def destroy
     property = Property.find params[:id]
 
-    if property.prop_images.any?
-      property.prop_images.each do |image|
-        Cloudinary::Uploader.destroy(image, { invalidate: true })
-      end
-    end
-
+    property.destroy_images if property.prop_images.any?
     property.destroy
     redirect_to admin_properties_path
   end

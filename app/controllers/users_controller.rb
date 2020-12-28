@@ -6,7 +6,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create user_params
+    @user = User.new user_params
+    @user.user_type = 'user'
+    @user.save
 
     if @user.persisted?
       Address.create user_id: @user.id

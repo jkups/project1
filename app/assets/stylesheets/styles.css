@@ -160,7 +160,6 @@ input:focus {
   padding: 15px;
   background-color: #f8d7da;
   color: #721c24;
-  position: absolute;
   left: 0;
   right: 0;
 }
@@ -183,4 +182,22 @@ input:focus {
   background-color: #fff;
   color: #4b4c4d;
   margin-top: 100px;
+}
+
+.admin-tabs:hover{
+  border-bottom: solid 1.5px #17a2b8;
+}
+
+.admin-tabs.active{
+  border-bottom: solid 1.5px #17a2b8;
+  background-color: #dae0e5 !important;
+}
+
+.account-tabs:hover {
+  border-left: solid 5px #17a2b8;
+}
+
+.account-tabs.active {
+  border-left: solid 5px #17a2b8;
+  background-color: #dae0e5 !important;
 }

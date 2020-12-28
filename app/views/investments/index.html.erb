@@ -1,3 +1,11 @@
+<% if flash[:error] %>
+	<div class="notice">
+		<div class="container">
+			<i class="fas fa-ban"></i> <%= flash[:error] %>
+		</div>
+	</div>
+<% end %>
+
 <div class="container py-5">
   <%= render partial: "accounts/badge" %>
 
@@ -32,8 +40,8 @@
   						<div class="text-right bg-light border rounded p-3 border-0 my-1">
   							<p class="mb-0 text-black-50" style="font-size: 14px;">Total</p>
   							<h6 class="text-info">Investment</h6>
-  							<h4 class="text-black-50">$
-                  <%= @investments.pluck(:invest_amount).sum %>
+  							<h4 class="text-black-50">
+                  <%= number_to_currency(@investments.pluck(:invest_amount).sum, unit: '$ ') %>
                 </h4>
   						</div>
   					</div>
@@ -41,8 +49,8 @@
   						<div class="text-right bg-light border rounded p-3 border-0 my-1">
   							<p class="mb-0 text-black-50" style="font-size: 14px;">Total</p>
   							<h6 class="text-info">Fee &amp; Charges</h6>
-  							<h4 class="text-black-50">$
-                  <%= @investments.pluck(:trxn_fee).sum %>
+  							<h4 class="text-black-50">
+                  <%= number_to_currency(@investments.pluck(:trxn_fee).sum, unit: '$ ') %>
                 </h4>
   						</div>
   					</div>
@@ -67,7 +75,7 @@
   				</div>
           <hr>
           <div class="text-right my-4">
-  					<a class="btn btn-info ml-md-2 button-block" href="/property">
+  					<a class="btn btn-info ml-md-2 button-block" href="<%= properties_path %>">
   						NEW INVESTMENT
   					</a>
   				</div>

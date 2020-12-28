@@ -1,48 +1,45 @@
+<% if flash[:error] %>
+	<div class="notice">
+		<div class="container">
+			<i class="fas fa-ban"></i> <%= flash[:error] %>
+		</div>
+	</div>
+<% end %>
+
 <div class="container py-5">
 
   <div class="row">
-    <div class="col-12">
-      <ul id="sidebar" class="list-unstyled d-flex">
-        <li class="text-center text-lg-left flex-fill">
-          <a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs active" href="<%= admin_properties_path %>">Properties<br></a>
-        </li>
-        <li class="text-center text-lg-left flex-fill">
-          <a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="#">Users<br></a>
-        </li>
-        <li class="text-center text-lg-left flex-fill">
-          <a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="">Accounts<br></a>
-        </li>
-        <li class="text-center text-lg-left flex-fill">
-          <a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 account-tabs" href="#">Investments<br></a>
-        </li>
-      </ul>
-    </div>
+    <%= render partial:'adminnav' %>
 
 		<div class="col">
 			<div class="border rounded p-4">
-        <div class="text-right mB-4">
-          <%= link_to 'NEW PROPERTY', admin_new_property_path, class: "btn btn-info ml-md-2 button-block" %>
-        </div>
-        <hr>
-        <div>
-          <div class="table-responsive">
-  					<table id="invTable" class="table table-hover table-bordered" style="width:100%">
-  						<thead class="thead-light">
-  							<tr>
-  								<th></th>
-  								<th>Date</th>
-  								<th>Thumbnail</th>
-  								<th>PID</th>
-  								<th>Name</th>
-  								<th>Units Sold</th>
-  								<th>Unit Price</th>
-  								<th>Status</th>
-  								<th></th>
-  							</tr>
-  						</thead>
-  					</table>
-  				</div>
-        </div>
+        <% if @properties.nil? %>
+          <div>No property has been setup.</div>
+        <% else %>
+          <div class="text-right mB-4">
+            <%= link_to 'NEW PROPERTY', admin_new_property_path, class: "btn btn-info ml-md-2 button-block" %>
+          </div>
+          <hr>
+          <div>
+            <div class="table-responsive">
+    					<table id="invTable" class="table table-hover table-bordered" style="width:100%">
+    						<thead class="thead-light">
+    							<tr>
+    								<th></th>
+    								<th>Date</th>
+    								<th>Thumbnail</th>
+    								<th>PID</th>
+    								<th>Name</th>
+    								<th>Units Sold</th>
+    								<th>Unit Price</th>
+    								<th>Status</th>
+    								<th></th>
+    							</tr>
+    						</thead>
+    					</table>
+    				</div>
+          </div>
+        <% end %>
 			</div>
 		</div>
 	</div>
@@ -80,12 +77,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net/1.10.21/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
-<script type="text/javascript">
-	data = <%== @properties.to_json %>;
+<% if !@properties.nil? %>
+  <script type="text/javascript">
+	const data = <%== @properties.to_json %>;
 
 	$(document).ready(function () {
-    console.log(data)
-		let table = $('#invTable').DataTable({
+		const table = $('#invTable').DataTable({
 			data: data,
 			columns: [
 				{ data: null },
@@ -177,3 +174,4 @@
 
   }
 </script>
+<% end %>

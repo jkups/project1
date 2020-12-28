@@ -1,0 +1,142 @@
+<% if flash[:error] %>
+	<div class="notice">
+		<div class="container">
+			<i class="fas fa-ban"></i> <%= flash[:error] %>
+		</div>
+	</div>
+<% end %>
+
+<div class="container py-5">
+
+  <div class="row">
+    <%= render partial:'admin_properties/adminnav' %>
+
+		<div class="col">
+			<div class="border rounded p-4">
+        <% if @investments.nil? %>
+          <div>No invesment has been made yet.</div>
+        <% else %>
+          <div>
+            <h5>Investment Summary</h5>
+            <hr>
+            <div class="row row-cols-2 row-cols-lg-3 px-2">
+    					<div class="col-6 col-lg-2 px-1">
+    						<div class="text-right bg-light border rounded p-3 border-0 my-1">
+    							<p class="mb-0 text-black-50" style="font-size: 14px;">Acquired</p>
+    							<h6 class="text-info">Properties</h6>
+    							<h4 class="text-black-50">
+                    <%= @investments.pluck(:property_id).uniq.count %>
+                  </h4>
+    						</div>
+    					</div>
+    					<div class="col-6 col-lg-2 px-1">
+    						<div class="text-right bg-light border rounded p-3 border-0 my-1">
+    							<p class="mb-0 text-black-50" style="font-size: 14px;">No. of</p>
+    							<h6 class="text-info">Units</h6>
+    							<h4 class="text-black-50">
+                    <%= @investments.pluck(:invest_share).sum %>
+                  </h4>
+    						</div>
+    					</div>
+    					<div class="col px-1">
+    						<div class="text-right bg-light border rounded p-3 border-0 my-1">
+    							<p class="mb-0 text-black-50" style="font-size: 14px;">Total</p>
+    							<h6 class="text-info">Investment</h6>
+    							<h4 class="text-black-50">
+                    <%= number_to_currency(@investments.pluck(:invest_amount).sum, unit: '$ ')  %>
+                  </h4>
+    						</div>
+    					</div>
+    					<div class="col px-1">
+    						<div class="text-right bg-light border rounded p-3 border-0 my-1">
+    							<p class="mb-0 text-black-50" style="font-size: 14px;">Total</p>
+    							<h6 class="text-info">Fee &amp; Charges</h6>
+    							<h4 class="text-black-50">
+                    <%= number_to_currency(@investments.pluck(:trxn_fee).sum, unit: '$ ')%>
+                  </h4>
+    						</div>
+    					</div>
+    				</div>
+            <hr>
+            <h5 class="mt-5">Transaction Details</h5>
+            <hr>
+            <div class="table-responsive">
+    					<table id="invTable" class="table table-hover table-bordered" style="width:100%">
+    						<thead class="thead-light">
+    							<tr>
+    								<th></th>
+    								<th>Date</th>
+                    <th>Reference #</th>
+                    <th>Account</th>
+    								<th>Property</th>
+    								<th>Units Acquired</th>
+    								<th>Investment</th>
+    								<th>Fees Paid</th>
+    							</tr>
+    						</thead>
+    					</table>
+    				</div>
+          </div>
+        <% end %>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net/1.10.21/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+<% if @investments.any? %>
+  <script type="text/javascript">
+  	const data = <%== @investments.to_json %>;
+
+  	$(document).ready(function () {
+  		const table = $('#invTable').DataTable({
+  			data: data,
+  			columns: [
+  				{ data: null },
+  				{ data: 'created_at',
+  			  	render: function(data, type, row){
+    					let dateSplit = data.split('-');
+    					let daySplit = dateSplit[2].split('T');
+    					return type === "display" || type === "filter" ?
+    						daySplit[0] + '/' + dateSplit[1] + '/' + dateSplit[0] :
+    						data;
+  			  	}
+  				},
+          { data: 'trxn_ref' },
+          { data: 'account_name' },
+          { data: 'property_name',
+            render: function(data, type, row){
+              return '<u><a href="/properties/' + row.property_id + '" target=_blank>' + data + '</a></u>'
+            }
+          },
+          { data: 'invest_share', render: $.fn.dataTable.render.number( ',' ) },
+          { data: 'invest_amount', render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' ) },
+          { data: 'trxn_fee', render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' ) }
+  			],
+
+  			"columnDefs": [ {
+  				"searchable": false,
+  				"orderable": false,
+  				"targets": 0
+  				},
+  				{className: "td-text-right", targets: 6},
+  				{ width: "130px", targets: 2}
+  			],
+
+  			"order": [[ 1, 'dsc' ]]
+  		});
+
+  		table.on( 'order.dt search.dt', function () {
+  			table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+  				cell.innerHTML = i+1;
+  			});
+  		})
+  		.draw()
+  		.columns.adjust()
+  		// .responsive.recalc();
+  	});
+  </script>
+<% end %>

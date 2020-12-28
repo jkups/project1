@@ -5,4 +5,8 @@ class Account < ApplicationRecord
   has_one :address, dependent: :destroy
 
   accepts_nested_attributes_for :address, :user
+
+  attribute :invest_amount, :float
+  attribute :trxn_fee, :float
+  attribute :properties, :integer
 end

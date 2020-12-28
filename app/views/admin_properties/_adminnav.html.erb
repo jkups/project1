@@ -1,0 +1,13 @@
+<div class="col-12">
+  <ul id="sidebar" class="list-unstyled d-flex">
+    <li class="text-center flex-fill">
+      <a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 admin-tabs <% if request.path == '/admin/properties' %> active <% end %>" href="<%= admin_properties_path %>">Properties<br></a>
+    </li>
+    <li class="text-center flex-fill">
+      <a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 admin-tabs <% if request.path == '/admin/accounts' %> active <% end %>" href="<%= admin_accounts_path %>">Accounts<br></a>
+    </li>
+    <li class="text-center flex-fill">
+      <a class="text-info bg-light d-block py-2 pl-lg-3 mb-2 admin-tabs <% if request.path == '/admin/investments' %> active <% end %>" href="<%= admin_investments_path %>">Investments<br></a>
+    </li>
+  </ul>
+</div>

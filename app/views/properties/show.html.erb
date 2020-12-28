@@ -67,7 +67,7 @@
 					</ul>
 					<ul class="list-unstyled d-flex property-fact">
 						<li class="flex-fill">Property Value:</li>
-						<li class="text-info font-weight-bold">$ <%= @property.value %></li>
+						<li class="text-info font-weight-bold"><%= number_to_currency(@property.value, unit: '$ ') %></li>
 					</ul>
 				</div>
 				<div>

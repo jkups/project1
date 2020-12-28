@@ -3,6 +3,7 @@ class Investment < ApplicationRecord
   belongs_to :account
 
   attribute :property_name, :string
+  attribute :account_name, :string
 
   def pay_with_braintree nonce
     gateway = Braintree::Gateway.new(

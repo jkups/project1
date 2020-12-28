@@ -1,0 +1,14 @@
+<%= link_to edit_user_path(@current_user.id), class:'dropdown-item py-3 pl-3 border-bottom' do %>
+  <i class="fas fa-user-circle d-none d-md-inline text-info mr-3"></i>My Profile
+<% end %>
+<%
+  if @current_user.accounts.any?
+    active_acc = @current_user.accounts.filter{|item| item.account_active == true}.first.id
+    active_acc_path = edit_account_path(active_acc)
+  else
+    active_acc_path = new_account_path
+  end
+%>
+<%= link_to active_acc_path, class:'dropdown-item py-3 pl-3 border-bottom' do %>
+  <i class="fas fa-folder-open d-none d-md-inline text-info mr-3"></i>Accounts
+<% end %>

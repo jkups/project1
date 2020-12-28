@@ -40,7 +40,7 @@
 					<hr class="my-0">
 					<div class="form-group bg-light p-4 mb-0">
 						<div class="d-flex align-items-baseline">
-							<i class="fas fa-angle-double-right text-info"></i>
+							<i class="fas fa-angle-double-right text-info"></i>&nbsp;
 							<%= f.label "Enter number of units to buy", class:"d-block" %>
 						</div>
 						<%= f.number_field "input_shares", class:"border rounded form-control-lg w-100", value: @property.min_shares %>
@@ -58,7 +58,7 @@
 							</strong>
 							<em> investment account will secure</em>
 							<span id="review_shares"><%= @property.min_shares %></span> unit share in <%= @property.name %> at
-							$<%= @property.value / @property.total_shares %>/share.
+							<%= number_to_currency(@property.value / @property.total_shares, unit: '$ ') %>/share.
 						</p>
 
 						<h6 class="text-info mt-5">Investment Summary</h6>
@@ -73,15 +73,15 @@
 								fees = investment * 0.1
 								%>
 								<li class="flex-fill">Investment</li>
-								<li id="inv">$ <%= investment %></li>
+								<li id="inv"><%= number_to_currency(investment, unit: '$ ') %></li>
 							</ul>
 							<ul class="list-unstyled text-secondary d-flex mb-1">
 								<li class="flex-fill">Transaction Fees</li>
-								<li id="fees">$ <%= fees %></li>
+								<li id="fees"><%= number_to_currency(fees, unit: '$ ') %></li>
 							</ul>
 							<ul class="list-unstyled d-flex mt-1 py-2 font-weight-bold border-top border-bottom" style="font-size: 14pt;">
 								<li class="flex-fill">Total Due</li>
-								<li id="total">$ <%= investment + fees %></li>
+								<li id="total"><%= number_to_currency(investment + fees, unit: '$ ') %></li>
 							</ul>
 						</div>
 					</div>
