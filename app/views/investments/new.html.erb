@@ -44,7 +44,7 @@
 							<%= f.label "Enter number of units to buy", class:"d-block" %>
 						</div>
 						<%= f.number_field "input_shares", class:"border rounded form-control-lg w-100", value: @property.min_shares %>
-						<p class="mt-2 mb-0 text-black-50"><i><%= @property.available_shares %> units available</i></p>
+						<p class="mt-2 mb-0 text-black-50"><i><%= number_with_delimiter(@property.available_shares) %> units available</i></p>
 					</div>
 				</div>
 			</div>
@@ -58,7 +58,7 @@
 							</strong>
 							<em> investment account will secure</em>
 							<span id="review_shares"><%= @property.min_shares %></span> unit share in <%= @property.name %> at
-							<%= number_to_currency(@property.value / @property.total_shares, unit: '$ ') %>/share.
+							<%= number_to_currency(@property.value / @property.total_shares, unit: '$') %>/share.
 						</p>
 
 						<h6 class="text-info mt-5">Investment Summary</h6>

@@ -56,7 +56,7 @@ table .td-text-right {
     text-align: right;
 }
 
-navigation-clean .navbar-nav > li > .dropdown-menu {
+.navigation-clean .navbar-nav > li > .dropdown-menu {
     margin-top: -5px;
     box-shadow: none;
     background-color: #fff;
@@ -66,6 +66,10 @@ navigation-clean .navbar-nav > li > .dropdown-menu {
 .navigation-clean.navbar .navbar-nav .nav-link {
     padding-left: 18px;
     padding-right: 18px;
+    color: #465765 !important;
+}
+.navigation-clean .navbar-nav > li a {
+  color: #465765 !important;
 }
 
 .navbar-expand-md .navbar-nav .dropdown-menu {
@@ -78,6 +82,10 @@ navigation-clean .navbar-nav > li > .dropdown-menu {
 .navigation-clean .dropdown-menu .dropdown-item:focus, .navigation-clean .dropdown-menu .dropdown-item:hover {
     background: #eee;
     color: inherit;
+}
+
+.navbar-toggler:focus {
+  outline: none;
 }
 
 .wrapper {
@@ -200,4 +208,63 @@ input:focus {
 .account-tabs.active {
   border-left: solid 5px #17a2b8;
   background-color: #dae0e5 !important;
+}
+
+.carousel-item {
+  height: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media screen and (max-width: 768px) {
+  .carousel-item {
+    height: 350px;
+  }
+
+  #payButton {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .pay-button {
+    position: fixed;
+  }
+
+  .account-tabs.active, .account-tabs:hover {
+    border-left: none !important;
+    border-bottom: solid 1.5px #17a2b8;
+  }
+
+  #top-nav {
+    position: absolute;
+    top: 49px;
+    left: 0;
+    right: 0;
+  }
+
+  .nav-item {
+    border: 1px solid rgb(228,231,234);
+    border-top: none;
+  }
+
+  .dropdown-toggle.nav-link {
+    display: none;
+  }
+
+  .navbar-expand-md .navbar-nav .dropdown-menu {
+    margin-top: 0 !important;
+    display: block;
+    border:none;
+  }
+
+  .navbar-nav .nav-link:hover {
+    background-color: #eee;
+  }
+
+  .login {
+    width: 75%;
+  }
 }

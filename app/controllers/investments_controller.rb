@@ -1,7 +1,7 @@
 class InvestmentsController < ApplicationController
   before_action :check_if_user_logged_in
 
-
+  #ajax call to update displayed price
   def update_price
     property = Property.find params[:id]
     result = property.calculate_price params[:input_shares]
@@ -17,9 +17,6 @@ class InvestmentsController < ApplicationController
     @account = Account.find_by user_id: @current_user.id, account_active: true
     @investments = Investment.where account_id: @account.id, trxn_status: "successful"
     @investments = @investments.each { |inv| inv.property_name = inv.property.name }
-  end
-
-  def show
   end
 
   def new

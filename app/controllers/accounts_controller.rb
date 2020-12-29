@@ -1,6 +1,8 @@
 class AccountsController < ApplicationController
   before_action :check_if_user_logged_in
 
+  #ajax call to switch and set active account
+  #only one investment account can be active per time
   def switch
     @current_user.accounts.each do |account|
       account.account_active = false
@@ -14,12 +16,7 @@ class AccountsController < ApplicationController
     redirect_to edit_account_path(account.id)
   end
 
-  def index
-
-  end
-
   def update
-    redirect_to root_path and return unless @current_user.present?
     @account = Account.find params[:id]
     @account.update account_params
 
@@ -55,12 +52,10 @@ class AccountsController < ApplicationController
   end
 
   def new
-    redirect_to login_path and return unless @current_user.present?
     @account = Account.new user_id: @current_user.id
   end
 
   def destroy
-    redirect_to root_path and return unless @current_user.present?
     account = Account.find params[:id]
     account.destroy
 
@@ -75,11 +70,7 @@ class AccountsController < ApplicationController
     end
   end
 
-  def show
-  end
-
   def edit
-    redirect_to root_path and return unless @current_user.present?
     @account = Account.find_by account_active: true
   end
 
@@ -92,15 +83,4 @@ class AccountsController < ApplicationController
     )
   end
 
-  # def new_account_params
-  #   params.require(:account).permit(
-  #     :account_name, :account_type, :company_name, :reg_number, 'profile_id' => @current_user.profile.id
-  #   )
-  # end
-  #
-  # def legal_address_params
-  #   params.require(:account).permit(
-  #     :street_number, :street_name, :suburb, :zipcode, :state, :country
-  #   )
-  # end
 end

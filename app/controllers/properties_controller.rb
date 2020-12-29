@@ -1,4 +1,5 @@
 class PropertiesController < ApplicationController
+
   def index
     @properties = Property.all
   end
@@ -7,18 +8,4 @@ class PropertiesController < ApplicationController
     @property = Property.find params[:id]
   end
 
-  def create
-  end
-
-  def edit
-  end
-
-  def destroy
-  end
-
-  def update
-  end
-
-  def new
-  end
 end

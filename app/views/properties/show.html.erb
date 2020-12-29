@@ -3,8 +3,8 @@
 		<div class="carousel-inner" role="listbox">
 			<% @property.prop_images.each_index do |i| %>
 				<% if i != 0 %>
-					<div class="carousel-item <% if i == 1 %>active<% end %>">
-		        <%= cl_image_tag @property.prop_images[i], class:"w-100 d-block" %>
+					<div class="carousel-item <% if i == 1 %>active<% end %>" style="background-image:url('<%= cl_image_path @property.prop_images[i]%>')">
+
 					</div>
 				<% end %>
 			<% end %>
@@ -35,7 +35,7 @@
 						<li class="mr-3"><%= @property.bed %> <i class="fas fa-bed"></i></li>
 						<li class="mr-3"><%= @property.bath %> <i class="fas fa-bath"></i></li>
 						<li class="mr-3"><%= @property.car_park %> <i class="fas fa-car"></i></li>
-						<li class="mr-3"><%= @property.plot_size %> sqft</li>
+						<li class="mr-3"><%= number_with_delimiter(@property.plot_size) %> sqft</li>
 					</ul>
 					<div class="my-5">
 						<%= link_to 'Buy Shares', new_investment_path(id: @property.id), class:"btn btn-info btn-lg px-5 button-block" %>
@@ -59,7 +59,7 @@
 					</ul>
 					<ul class="list-unstyled d-flex property-fact">
 						<li class="flex-fill">Units Available:</li>
-						<li class="text-info font-weight-bold"><%= @property.available_shares %></li>
+						<li class="text-info font-weight-bold"><%= number_with_delimiter(@property.available_shares) %></li>
 					</ul>
 					<ul class="list-unstyled d-flex property-fact">
 						<li class="flex-fill">Estimated Yield (5yrs):</li>
@@ -98,7 +98,7 @@
 					<li class="mr-3"><%= @property.bed %> <i class="fas fa-bed"></i></li>
 					<li class="mr-3"><%= @property.bath %> <i class="fas fa-bath"></i></li>
 					<li class="mr-3"><%= @property.car_park %> <i class="fas fa-car"></i></li>
-					<li class="mr-3"><%= @property.plot_size %> sqft</li>
+					<li class="mr-3"><%= number_with_delimiter(@property.plot_size) %> sqft</li>
 				</ul>
 			</div>
 		</div>
