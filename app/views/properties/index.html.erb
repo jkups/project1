@@ -1,11 +1,11 @@
+<% if flash[:error] %>
+	<div class="notice">
+		<div class="container">
+			<i class="fas fa-ban"></i> <%= flash[:error] %>
+		</div>
+	</div>
+<% end %>
 <div class="container-fluid bg-light">
-	<% if flash[:error] %>
-    <div class="notice">
-      <div class="container">
-        <i class="fas fa-ban"></i> <%= flash[:error] %>
-      </div>
-    </div>
-  <% end %>
 	<div class="text-center py-5 pr-0">
 		<h2>Invest in Premium Properties</h2>
 		<p>

@@ -23,7 +23,11 @@ class InvestmentsController < ApplicationController
     @property = Property.find params[:id]
     @account = Account.find_by account_active: true, user_id: @current_user.id
 
-    if @account.nil?
+    if @property.status != 'active'
+      flash[:error] = "The property is not open for investment."
+      redirect_to properties_path
+
+    elsif @account.nil?
       flash[:error] = "You need to create an investment account."
       redirect_to new_account_path
     end

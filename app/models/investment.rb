@@ -31,6 +31,7 @@ class Investment < ApplicationRecord
   def update_trxn trxn_code, paymethod
     self.update trxn_code: trxn_code, pay_method: paymethod, trxn_status: 'successful'
     self.property.available_shares -= self.invest_share
+    self.property.status = 'soldout' if self.property.available_shares  == 0
     self.property.save
   end
 

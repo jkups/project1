@@ -38,7 +38,9 @@
 						<li class="mr-3"><%= number_with_delimiter(@property.plot_size) %> sqft</li>
 					</ul>
 					<div class="my-5">
-						<%= link_to 'Buy Shares', new_investment_path(id: @property.id), class:"btn btn-info btn-lg px-5 button-block" %>
+						<% if @property.status == 'active' %>
+							<%= link_to 'Buy Shares', new_investment_path(id: @property.id), class:"btn btn-info btn-lg px-5 button-block" %>
+						<% end %>
 					</div>
 				</div>
 			</li>
