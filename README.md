@@ -1,4 +1,4 @@
-## Brikalot: A Property Investment Platform
+## Mulka: A Property Investment Platform
 
 [Mulka](https://mulka.herokuapp.com/) is a platform that enable investors to own units of a property by acquiring units they can afford. The platform is mobile ready and was built with the following tools.
 
