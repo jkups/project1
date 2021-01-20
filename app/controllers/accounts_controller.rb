@@ -71,7 +71,7 @@ class AccountsController < ApplicationController
   end
 
   def edit
-    @account = Account.find_by account_active: true
+    @account = Account.find_by user_id: @current_user.id, account_active: true
   end
 
   private
