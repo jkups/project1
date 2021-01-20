@@ -39,7 +39,7 @@ class AccountsController < ApplicationController
       account_address.save
 
       @current_user.accounts.each do |account|
-        if account.id != @account.id 
+        if account.id != @account.id
           account.account_active = false
           account.save
         end
@@ -59,8 +59,8 @@ class AccountsController < ApplicationController
     account = Account.find params[:id]
     account.destroy
 
-    if Account.all.any?
-      account = Account.first
+    if @current_user.accounts.any?
+      account = @current_user.accounts.first
       account.account_active = true
       account.save
 
