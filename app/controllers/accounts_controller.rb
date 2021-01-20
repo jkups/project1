@@ -38,8 +38,8 @@ class AccountsController < ApplicationController
       account_address.user_id = nil
       account_address.save
 
-      Account.all.each do |account|
-        if account.id != @account.id
+      @current_user.accounts.each do |account|
+        if account.id != @account.id 
           account.account_active = false
           account.save
         end
