@@ -34,14 +34,14 @@
               <%= @user.errors.full_messages_for(:email)[0] %>
             </span>
           <% end %>
-          <%= f.text_field :email, placeholder: 'Email Address' %>
+          <%= f.email_field :email, placeholder: 'Email Address' %>
 
           <% if @user.errors.full_messages_for(:password).any? %>
             <span class="error">
               <%= @user.errors.full_messages_for(:password)[0] %>
             </span>
           <% end %>
-          <%= f.text_field :password, placeholder:'Password' %>
+          <%= f.password_field :password, placeholder:'Password' %>
 
           <%= f.button 'Sign Up' %>
           <%= link_to 'You already have a profile? Login here.', login_path, class: 'signup' %>
