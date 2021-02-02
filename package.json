@@ -1,5 +1,4 @@
 {
   "name": "project1",
-  "private": true,
-  "dependencies": {}
+  "private": true
 }
